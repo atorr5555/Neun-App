@@ -1,6 +1,7 @@
 package para.neun.smarthome;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
@@ -16,6 +17,8 @@ import android.widget.Switch;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private Handler mHandler = new Handler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,16 +33,36 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-        final Switch switchPuertaPrincipal = findViewById(R.id.switchPuertaPrincipal);
+        final Switch  switchPuertaPrincipal = findViewById(R.id.switchPuertaPrincipal);
         switchPuertaPrincipal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switchPuertaPrincipal.setChecked(true);
-                try{
-                    Thread.sleep(5000);
-                }catch(InterruptedException e) { }
-                switchPuertaPrincipal.setChecked(false);
+                mHandler.postDelayed(mSwitchRunnable, 5000);
+
             }
+            private Runnable mSwitchRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    switchPuertaPrincipal.setChecked(false);
+                }
+            };
+        });
+
+        final Switch  switchPuertaPatio = findViewById(R.id.switchPuertaPatio);
+        switchPuertaPatio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchPuertaPatio.setChecked(true);
+                mHandler.postDelayed(mSwitchRunnableP, 5000);
+
+            }
+            private Runnable mSwitchRunnableP = new Runnable() {
+                @Override
+                public void run() {
+                    switchPuertaPatio.setChecked(false);
+                }
+            };
         });
     }
 
