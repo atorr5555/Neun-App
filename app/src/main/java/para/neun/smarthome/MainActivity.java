@@ -1,5 +1,6 @@
 package para.neun.smarthome;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         currentConfig = (readConfig() == null) ? new Home() : readConfig();
         updateConfig();
 
-        final Switch switchFoco1 = findViewById(R.id.switchFoco1);
+        Switch switchFoco1 = findViewById(R.id.switchFoco1);
         switchFoco1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        final Switch switchFoco2 = findViewById(R.id.switchFoco2);
+        Switch switchFoco2 = findViewById(R.id.switchFoco2);
         switchFoco2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        final Switch switchFoco3 = findViewById(R.id.switchFoco3);
+        Switch switchFoco3 = findViewById(R.id.switchFoco3);
         switchFoco3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        final Switch switchFoco4 = findViewById(R.id.switchFoco4);
+        Switch switchFoco4 = findViewById(R.id.switchFoco4);
         switchFoco4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        final Switch switchFoco5 = findViewById(R.id.switchFoco5);
+        Switch switchFoco5 = findViewById(R.id.switchFoco6);
         switchFoco5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        final Switch switchFoco6 = findViewById(R.id.switchFoco6);
+        Switch switchFoco6 = findViewById(R.id.switchFoco6);
         switchFoco6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -97,7 +99,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        final Switch switchFoco7 = findViewById(R.id.switchFoco7);
+        Switch switchFoco7 = findViewById(R.id.switchFoco7);
         switchFoco7.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -106,7 +108,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        final Switch switchFoco8 = findViewById(R.id.switchFoco8);
+        Switch switchFoco8 = findViewById(R.id.switchFoco8);
         switchFoco8.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -187,7 +189,13 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_add) {
-
+            findViewById(id).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent startIntent = new Intent(getApplicationContext(), CreateProfile.class);
+                    startActivity(startIntent);
+                }
+            });
         } else if (id == R.id.nav_change) {
 
         } else if (id == R.id.nav_delete) {
@@ -202,11 +210,16 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
     //Revisar esto hace el serialize
     public boolean saveConfig() {
         try {
-
-            ObjectOutputStream writingFile = new ObjectOutputStream(new FileOutputStream("currentConfig.txt"));
+            File filename = new File("data/data/para.neun.smarthome/test.txt");
+            if(!filename.exists()){
+                filename.createNewFile();
+            }
+            FileOutputStream out = new FileOutputStream(filename);
+            ObjectOutputStream writingFile = new ObjectOutputStream(out);
             writingFile.writeObject(currentConfig);
             writingFile.close();
             return true;
@@ -216,12 +229,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
     //Revisar esto hace el deserialize
     public Home readConfig(){
         try {
 
-            ObjectInputStream readingFile = new ObjectInputStream(new FileInputStream("currentConfig.txt"));
+            ObjectInputStream readingFile = new ObjectInputStream(new FileInputStream("data/data/para.neun.smarthome/test.txt"));
             Home recoveredConfig = (Home) readingFile.readObject();
             readingFile.close();
             return recoveredConfig;
@@ -234,8 +246,8 @@ public class MainActivity extends AppCompatActivity
     //Actualiza valores una vez que se obtiene el deserialize
     public void updateConfig() {
         Boolean [] focos  = currentConfig.getFocos();
-        Switch [] switches = {findViewById(R.id.switchFoco1), findViewById(R.id.switchFoco2), findViewById(R.id.switchFoco3), findViewById(R.id.switchFoco4),
-                findViewById(R.id.switchFoco5), findViewById(R.id.switchFoco6), findViewById(R.id.switchFoco7), findViewById(R.id.switchFoco8)};
+        final Switch [] switches = {findViewById(R.id.switchFoco1), findViewById(R.id.switchFoco2), findViewById(R.id.switchFoco3), findViewById(R.id.switchFoco4),
+                findViewById(R.id.switchFoco6), findViewById(R.id.switchFoco6), findViewById(R.id.switchFoco7), findViewById(R.id.switchFoco8)};
         for(int i = 0; i < focos.length; i++) {
             if (focos[i]) {
                 switches[i].setChecked(true);

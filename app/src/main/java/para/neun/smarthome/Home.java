@@ -4,7 +4,7 @@ package para.neun.smarthome;
  *  Clase que representa la casa inteligente y como atributos tiene a los elementos de la casa que se pueden controlar
  */
 public class Home implements java.io.Serializable{
-    private Boolean[] focos = new Boolean[8];
+    private Boolean[] focos = {false, false, false, false, false, false, false, false};
     private Boolean puertaPrincipal;
     private Boolean puertaPatio;
     private Boolean puertaCuarto;
@@ -12,9 +12,9 @@ public class Home implements java.io.Serializable{
     private float humedad;
 
     public Home() {
-        /**
-         * Agregar después
-         */
+        puertaPrincipal = false;
+        puertaPatio = false;
+        puertaCuarto = false;
     }
 
     /**

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateProfile">
+
+    <TextView
+        android:id="@+id/textViewFocos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Focos"
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.063"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/switchFoco1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Foco 1"
+        app:layout_constraintStart_toStartOf="@+id/textViewFocos"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFocos" />
+
+    <Switch
+        android:id="@+id/switchFoco2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:text="Foco 2"
+        app:layout_constraintStart_toEndOf="@+id/switchFoco1"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFocos" />
+
+    <Switch
+        android:id="@+id/switchFoco3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:text="Foco 3"
+        app:layout_constraintStart_toEndOf="@+id/switchFoco2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFocos" />
+
+    <Switch
+        android:id="@+id/switchFoco4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="12dp"
+        android:text="Foco4"
+        app:layout_constraintStart_toEndOf="@+id/switchFoco3"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFocos" />
+
+    <Switch
+        android:id="@+id/switchFoco5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Foco 5"
+        app:layout_constraintEnd_toEndOf="@+id/switchFoco1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/switchFoco1"
+        app:layout_constraintTop_toBottomOf="@+id/switchFoco1" />
+
+    <Switch
+        android:id="@+id/switchFoco6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="20dp"
+        android:text="Foco 6"
+        app:layout_constraintEnd_toEndOf="@+id/switchFoco2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/switchFoco2"
+        app:layout_constraintTop_toBottomOf="@+id/switchFoco2" />
+
+    <Switch
+        android:id="@+id/switchFoco7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Foco 7"
+        app:layout_constraintEnd_toEndOf="@+id/switchFoco3"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/switchFoco3"
+        app:layout_constraintTop_toBottomOf="@+id/switchFoco3" />
+
+    <Switch
+        android:id="@+id/switchFoco8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Foco8"
+        app:layout_constraintEnd_toEndOf="@+id/switchFoco4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/switchFoco4"
+        app:layout_constraintTop_toBottomOf="@+id/switchFoco4" />
+
+    <TextView
+        android:id="@+id/textViewPuertas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Puertas"
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/switchFoco5"
+        app:layout_constraintTop_toBottomOf="@+id/switchFoco5" />
+
+    <Switch
+        android:id="@+id/switchPuertaPrincipal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Principal"
+        app:layout_constraintStart_toStartOf="@+id/textViewPuertas"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPuertas" />
+
+    <Switch
+        android:id="@+id/switchPuertaPatio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="24dp"
+        android:text="Patio"
+        app:layout_constraintStart_toEndOf="@+id/switchPuertaPrincipal"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPuertas" />
+
+    <Switch
+        android:id="@+id/switchPuertaCuarto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="24dp"
+        android:text="Cuarto"
+        app:layout_constraintStart_toEndOf="@+id/switchPuertaPatio"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPuertas" />
+
+    <Button
+        android:id="@+id/buttonGuardar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Guardar"
+        tools:layout_editor_absoluteX="271dp"
+        tools:layout_editor_absoluteY="328dp" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/inputProfileName"
+        android:layout_width="217dp"
+        android:layout_height="36dp"
+        android:hint="Ingrese el nombre"
+        tools:layout_editor_absoluteX="29dp"
+        tools:layout_editor_absoluteY="328dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:hint="hint" />
+    </android.support.design.widget.TextInputLayout>
+
+</android.support.constraint.ConstraintLayout>
