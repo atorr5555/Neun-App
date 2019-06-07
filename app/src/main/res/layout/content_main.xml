@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
-    tools:showIn="@layout/app_bar_main">
+    tools:showIn="@layout/app_bar_main">%
 
     <TextView
         android:id="@+id/textViewFocosTitle"
@@ -30,12 +30,10 @@
         android:id="@+id/switchFoco1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="Foco 1"
         android:textOn="ON"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textViewFocosTitle"
         app:layout_constraintTop_toBottomOf="@+id/textViewFocosTitle" />
 
     <Switch
@@ -77,47 +75,45 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Foco 5"
+        app:layout_constraintEnd_toEndOf="@+id/switchFoco1"
         app:layout_constraintStart_toStartOf="@+id/switchFoco1"
         app:layout_constraintTop_toBottomOf="@+id/switchFoco1" />
-
-    <Switch
-        android:id="@+id/switchFoco5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Foco 6"
-        app:layout_constraintStart_toEndOf="@+id/switchFoco6"
-        app:layout_constraintTop_toBottomOf="@+id/switchFoco2" />
 
     <Switch
         android:id="@+id/switchFoco7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:text="Foco 7"
-        app:layout_constraintStart_toEndOf="@+id/switchFoco6"
+        app:layout_constraintEnd_toEndOf="@+id/switchFoco3"
+        app:layout_constraintStart_toStartOf="@+id/switchFoco3"
         app:layout_constraintTop_toBottomOf="@+id/switchFoco3" />
 
     <Switch
         android:id="@+id/switchFoco8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:text="Foco 8"
-        app:layout_constraintStart_toEndOf="@+id/switchFoco7"
+        app:layout_constraintEnd_toEndOf="@+id/switchFoco4"
+        app:layout_constraintStart_toStartOf="@+id/switchFoco4"
         app:layout_constraintTop_toBottomOf="@+id/switchFoco4" />
+
+    <Switch
+        android:id="@+id/switchFoco6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Foco 6"
+        app:layout_constraintEnd_toEndOf="@+id/switchFoco2"
+        app:layout_constraintStart_toStartOf="@+id/switchFoco2"
+        app:layout_constraintTop_toBottomOf="@+id/switchFoco2" />
 
     <TextView
         android:id="@+id/textViewPuertas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Puertas"
@@ -126,15 +122,17 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/switchFoco6"
-        app:layout_constraintTop_toBottomOf="@+id/switchFoco6" />
+        app:layout_constraintStart_toStartOf="@+id/switchFoco5"
+        app:layout_constraintTop_toBottomOf="@+id/switchFoco5" />
 
     <Switch
         android:id="@+id/switchPuertaPrincipal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:text="Principal"
+        app:layout_constraintEnd_toEndOf="@+id/textViewPuertas"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textViewPuertas"
         app:layout_constraintTop_toBottomOf="@+id/textViewPuertas" />
 
@@ -142,26 +140,26 @@
         android:id="@+id/switchPuertaPatio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginLeft="116dp"
+        android:layout_marginTop="16dp"
         android:text="Patio"
-        app:layout_constraintStart_toEndOf="@+id/switchPuertaPrincipal"
+        app:layout_constraintStart_toStartOf="@+id/textViewPuertas"
         app:layout_constraintTop_toBottomOf="@+id/textViewPuertas" />
 
     <Switch
         android:id="@+id/switchPuertaCuarto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="16dp"
         android:text="Cuarto"
         app:layout_constraintStart_toEndOf="@+id/switchPuertaPatio"
         app:layout_constraintTop_toBottomOf="@+id/textViewPuertas" />
 
     <TextView
-        android:id="@+id/textViewTemperatura"
+        android:id="@+id/textViewTempHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -173,49 +171,49 @@
         app:layout_constraintTop_toBottomOf="@+id/switchPuertaPrincipal" />
 
     <TextView
-        android:id="@+id/textViewShowTemp"
-        android:layout_width="83dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="Temperatura"
-        android:text="temperatura"
-        app:layout_constraintStart_toStartOf="@+id/textViewTemperatura"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTemperatura" />
+        android:id="@+id/textViewTemperatura"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Temperatura"
+        app:layout_constraintStart_toStartOf="@+id/textViewTempHeader"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTempHeader" />
 
     <TextView
         android:id="@+id/textViewGrados"
-        android:layout_width="62dp"
-        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="℃"
         android:textColor="@android:color/background_dark"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/textViewShowTemp"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTemperatura" />
+        app:layout_constraintStart_toEndOf="@+id/textViewTemperatura"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTempHeader" />
 
     <TextView
         android:id="@+id/textViewHumedad"
-        android:layout_width="87dp"
-        android:layout_height="23dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="16dp"
-        android:text="humedad"
+        android:layout_marginTop="24dp"
+        android:text="Humedad"
         app:layout_constraintStart_toEndOf="@+id/textViewGrados"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTemperatura" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTempHeader" />
 
     <TextView
         android:id="@+id/textViewPorcentaje"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="24dp"
         android:text="%"
         android:textColor="@android:color/background_dark"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textViewHumedad"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTemperatura" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTempHeader" />
+
 </android.support.constraint.ConstraintLayout>

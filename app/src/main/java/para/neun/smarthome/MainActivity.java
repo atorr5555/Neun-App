@@ -8,25 +8,27 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
-
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Handler mHandler = new Handler();
     Home currentConfig;
+    public List<String> profiles = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        updateList();
 
         currentConfig = (readConfig() == null) ? new Home() : readConfig();
         updateConfig();
@@ -117,37 +121,33 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        final Switch  switchPuertaPrincipal = findViewById(R.id.switchPuertaPrincipal);
-        switchPuertaPrincipal.setOnClickListener(new View.OnClickListener() {
+        Switch  switchPuertaPrincipal = findViewById(R.id.switchPuertaPrincipal);
+        switchPuertaPrincipal.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                switchPuertaPrincipal.setChecked(true);
-
-                mHandler.postDelayed(mSwitchRunnable, 5000);
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                currentConfig.setPuertaPrincipal(isChecked);
+                saveConfig();
             }
-            private Runnable mSwitchRunnable = new Runnable() {
-                @Override
-                public void run() {
-                    switchPuertaPrincipal.setChecked(false);
-                }
-            };
         });
 
-        final Switch  switchPuertaPatio = findViewById(R.id.switchPuertaPatio);
-        switchPuertaPatio.setOnClickListener(new View.OnClickListener() {
+        Switch  switchPuertaPatio = findViewById(R.id.switchPuertaPatio);
+        switchPuertaPatio.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                switchPuertaPatio.setChecked(true);
-                mHandler.postDelayed(mSwitchRunnableP, 5000);
-
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                currentConfig.setPuertaPatio(isChecked);
+                saveConfig();
             }
-            private Runnable mSwitchRunnableP = new Runnable() {
-                @Override
-                public void run() {
-                    switchPuertaPatio.setChecked(false);
-                }
-            };
         });
+
+        Switch  switchPuertaCuarto = findViewById(R.id.switchPuertaCuarto);
+        switchPuertaCuarto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                currentConfig.setPuertaCuarto(isChecked);
+                saveConfig();
+            }
+        });
+
     }
 
     @Override
@@ -189,18 +189,17 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_add) {
-            findViewById(id).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent startIntent = new Intent(getApplicationContext(), CreateProfile.class);
-                    startActivity(startIntent);
-                }
-            });
+            Intent addIntent = new Intent(MainActivity.this, AddActivity.class);
+            startActivity(addIntent);
+            updateList();
+
         } else if (id == R.id.nav_change) {
 
         } else if (id == R.id.nav_delete) {
 
         } else if (id == R.id.nav_help) {
+            Intent helpIntent = new Intent(MainActivity.this, HelpActivity.class);
+            startActivity(helpIntent);
 
         } else if (id == R.id.nav_settings) {
 
@@ -211,7 +210,8 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    //Revisar esto hace el serialize
+
+
     public boolean saveConfig() {
         try {
             File filename = new File("data/data/para.neun.smarthome/test.txt");
@@ -229,7 +229,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    //Revisar esto hace el deserialize
+
     public Home readConfig(){
         try {
 
@@ -249,12 +249,51 @@ public class MainActivity extends AppCompatActivity
         final Switch [] switches = {findViewById(R.id.switchFoco1), findViewById(R.id.switchFoco2), findViewById(R.id.switchFoco3), findViewById(R.id.switchFoco4),
                 findViewById(R.id.switchFoco6), findViewById(R.id.switchFoco6), findViewById(R.id.switchFoco7), findViewById(R.id.switchFoco8)};
         for(int i = 0; i < focos.length; i++) {
-            if (focos[i]) {
-                switches[i].setChecked(true);
+                switches[i].setChecked(focos[i]);
+        }
+        Switch  switchPuertaPrincipal = findViewById(R.id.switchPuertaPrincipal);
+        switchPuertaPrincipal.setChecked(currentConfig.getPuertaPrincipal());
+
+        Switch  switchPuertaPatio = findViewById(R.id.switchPuertaPatio);
+        switchPuertaPatio.setChecked(currentConfig.getPuertaPatio());
+
+        Switch  switchPuertaCuarto = findViewById(R.id.switchPuertaCuarto);
+        switchPuertaCuarto.setChecked(currentConfig.getPuertaCuarto());
+    }
+
+
+
+    public void updateList() {
+        String names;
+
+        try {
+            File filename = new File("data/data/para.neun.smarthome/list.txt");
+            if(!filename.exists()){
+                filename.createNewFile();
             }
-            else {
-                switches[i].setChecked(false);
+            BufferedReader br = new BufferedReader(new FileReader(filename));
+            names = br.readLine();
+
+
+        }catch(Exception e) {
+            names = "";
+        }
+        if (names != null) {
+            String [] namesArray = names.split("/");
+            for (String aux : namesArray) {
+                if ((!aux.equals("")) && (!busquedaLineal(profiles, aux))){
+                    profiles.add(aux);
+                }
             }
         }
+    }
+
+    public boolean busquedaLineal (List<String> lista, String key) {
+        for(String aux : lista) {
+            if (key.equals(aux)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

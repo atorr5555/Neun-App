@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateProfile">
+    tools:context=".AddActivity">
 
     <TextView
-        android:id="@+id/textViewFocos"
+        android:id="@+id/textViewFocosTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Focos"
@@ -20,7 +20,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.063"
+        app:layout_constraintHorizontal_bias="0.024"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,78 +28,62 @@
         android:id="@+id/switchFoco1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:text="Foco 1"
-        app:layout_constraintStart_toStartOf="@+id/textViewFocos"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFocos" />
+        android:textOn="ON"
+        app:layout_constraintStart_toStartOf="@+id/textViewFocosTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFocosTitle" />
 
     <Switch
         android:id="@+id/switchFoco2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         android:text="Foco 2"
         app:layout_constraintStart_toEndOf="@+id/switchFoco1"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFocos" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewFocosTitle" />
 
     <Switch
         android:id="@+id/switchFoco3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         android:text="Foco 3"
         app:layout_constraintStart_toEndOf="@+id/switchFoco2"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFocos" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewFocosTitle" />
 
     <Switch
         android:id="@+id/switchFoco4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="12dp"
-        android:text="Foco4"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Foco 4"
         app:layout_constraintStart_toEndOf="@+id/switchFoco3"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFocos" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewFocosTitle" />
 
     <Switch
         android:id="@+id/switchFoco5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
         android:text="Foco 5"
         app:layout_constraintEnd_toEndOf="@+id/switchFoco1"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/switchFoco1"
         app:layout_constraintTop_toBottomOf="@+id/switchFoco1" />
-
-    <Switch
-        android:id="@+id/switchFoco6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="20dp"
-        android:text="Foco 6"
-        app:layout_constraintEnd_toEndOf="@+id/switchFoco2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/switchFoco2"
-        app:layout_constraintTop_toBottomOf="@+id/switchFoco2" />
 
     <Switch
         android:id="@+id/switchFoco7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:text="Foco 7"
         app:layout_constraintEnd_toEndOf="@+id/switchFoco3"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/switchFoco3"
         app:layout_constraintTop_toBottomOf="@+id/switchFoco3" />
 
@@ -107,22 +91,35 @@
         android:id="@+id/switchFoco8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Foco8"
+        android:layout_marginTop="8dp"
+        android:text="Foco 8"
         app:layout_constraintEnd_toEndOf="@+id/switchFoco4"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/switchFoco4"
         app:layout_constraintTop_toBottomOf="@+id/switchFoco4" />
+
+    <Switch
+        android:id="@+id/switchFoco6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Foco 6"
+        app:layout_constraintEnd_toEndOf="@+id/switchFoco2"
+        app:layout_constraintStart_toStartOf="@+id/switchFoco2"
+        app:layout_constraintTop_toBottomOf="@+id/switchFoco2" />
 
     <TextView
         android:id="@+id/textViewPuertas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="Puertas"
         android:textColor="@android:color/background_dark"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/switchFoco5"
         app:layout_constraintTop_toBottomOf="@+id/switchFoco5" />
 
@@ -130,8 +127,10 @@
         android:id="@+id/switchPuertaPrincipal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="Principal"
+        app:layout_constraintEnd_toEndOf="@+id/textViewPuertas"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textViewPuertas"
         app:layout_constraintTop_toBottomOf="@+id/textViewPuertas" />
 
@@ -139,44 +138,53 @@
         android:id="@+id/switchPuertaPatio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginLeft="116dp"
+        android:layout_marginTop="16dp"
         android:text="Patio"
-        app:layout_constraintStart_toEndOf="@+id/switchPuertaPrincipal"
+        app:layout_constraintStart_toStartOf="@+id/textViewPuertas"
         app:layout_constraintTop_toBottomOf="@+id/textViewPuertas" />
 
     <Switch
         android:id="@+id/switchPuertaCuarto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="16dp"
         android:text="Cuarto"
         app:layout_constraintStart_toEndOf="@+id/switchPuertaPatio"
         app:layout_constraintTop_toBottomOf="@+id/textViewPuertas" />
 
-    <Button
-        android:id="@+id/buttonGuardar"
+    <EditText
+        android:id="@+id/EditTextName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:ems="10"
+        android:hint="Nombre del perfil"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switchPuertaPatio" />
+
+    <Button
+        android:id="@+id/buttonSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="Guardar"
-        tools:layout_editor_absoluteX="271dp"
-        tools:layout_editor_absoluteY="328dp" />
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/inputProfileName"
-        android:layout_width="217dp"
-        android:layout_height="36dp"
-        android:hint="Ingrese el nombre"
-        tools:layout_editor_absoluteX="29dp"
-        tools:layout_editor_absoluteY="328dp">
-
-        <android.support.design.widget.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:hint="hint" />
-    </android.support.design.widget.TextInputLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditTextName" />
 
 </android.support.constraint.ConstraintLayout>
