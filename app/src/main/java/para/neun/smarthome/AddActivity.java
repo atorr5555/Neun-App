@@ -75,7 +75,7 @@ public class AddActivity extends AppCompatActivity {
             }
         });
 
-        Switch switchFoco5 = findViewById(R.id.switchFoco6);
+        Switch switchFoco5 = findViewById(R.id.switchFoco5);
         switchFoco5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

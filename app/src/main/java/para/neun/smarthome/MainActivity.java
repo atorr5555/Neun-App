@@ -15,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.Toast;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -307,6 +309,8 @@ public class MainActivity extends AppCompatActivity
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
                 currentConfig = (Home) data.getSerializableExtra("nuevaConfig");
+                updateConfig();
+                Toast.makeText(getApplicationContext(), "Cambió a perfil " + data.getStringExtra("name"), Toast.LENGTH_SHORT).show();
             }
         }
     }

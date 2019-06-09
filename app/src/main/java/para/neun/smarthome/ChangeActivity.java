@@ -35,9 +35,11 @@ public class ChangeActivity extends AppCompatActivity {
         listaPerfiles.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Home newConfig = readConfig(parent.getItemAtPosition(position).toString());
+                String name = parent.getItemAtPosition(position).toString();
+                Home newConfig = readConfig(name);
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("nuevaConfig", newConfig);
+                resultIntent.putExtra("name", name);
                 setResult(RESULT_OK, resultIntent);
                 finish();
             }
