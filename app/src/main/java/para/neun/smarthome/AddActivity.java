@@ -8,8 +8,11 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.ObjectOutputStream;
 
 public class AddActivity extends AppCompatActivity {
@@ -28,7 +31,13 @@ public class AddActivity extends AppCompatActivity {
                 EditText editTextName = findViewById(R.id.EditTextName);
                 String name = editTextName.getText().toString();
                 name = name.replaceAll(" ","");
+                name = name.replaceAll("/", "");
+                if ((name.equals("")) || (name ==null)) {
+                    Toast.makeText(getApplicationContext(), "Ingrese un nombre válido", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if(saveConfig(name)) {
+                    writeName(name);
                     finish();
                 }
             }
@@ -141,6 +150,16 @@ public class AddActivity extends AppCompatActivity {
 
         }catch(Exception e) {
             return false;
+        }
+    }
+
+    public void writeName(String name) {
+        try {
+            File filename = new File("data/data/para.neun.smarthome/list.txt");
+            BufferedWriter bf = new BufferedWriter(new FileWriter(filename, true));
+            bf.write(name + "/");
+            bf.close();
+        }catch(Exception e) {
         }
     }
 }

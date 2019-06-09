@@ -3,6 +3,8 @@ package para.neun.smarthome;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity
 
     private Handler mHandler = new Handler();
     Home currentConfig;
-    public List<String> profiles = new ArrayList<>();
+    ArrayList<String> profiles = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity
 
         updateList();
 
-        currentConfig = (readConfig() == null) ? new Home() : readConfig();
+            currentConfig = (readConfig() == null) ? new Home() : readConfig();
         updateConfig();
 
         Switch switchFoco1 = findViewById(R.id.switchFoco1);
@@ -191,9 +193,12 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_add) {
             Intent addIntent = new Intent(MainActivity.this, AddActivity.class);
             startActivity(addIntent);
-            updateList();
 
         } else if (id == R.id.nav_change) {
+            updateList();
+            Intent changeIntent = new Intent(MainActivity.this, ChangeActivity.class);
+            changeIntent.putStringArrayListExtra("profiles", profiles);
+            startActivityForResult(changeIntent, 1);
 
         } else if (id == R.id.nav_delete) {
 
@@ -214,7 +219,7 @@ public class MainActivity extends AppCompatActivity
 
     public boolean saveConfig() {
         try {
-            File filename = new File("data/data/para.neun.smarthome/test.txt");
+            File filename = new File("data/data/para.neun.smarthome/currentConfig.txt");
             if(!filename.exists()){
                 filename.createNewFile();
             }
@@ -233,7 +238,7 @@ public class MainActivity extends AppCompatActivity
     public Home readConfig(){
         try {
 
-            ObjectInputStream readingFile = new ObjectInputStream(new FileInputStream("data/data/para.neun.smarthome/test.txt"));
+            ObjectInputStream readingFile = new ObjectInputStream(new FileInputStream("data/data/para.neun.smarthome/currentConfig.txt"));
             Home recoveredConfig = (Home) readingFile.readObject();
             readingFile.close();
             return recoveredConfig;
@@ -273,8 +278,7 @@ public class MainActivity extends AppCompatActivity
             }
             BufferedReader br = new BufferedReader(new FileReader(filename));
             names = br.readLine();
-
-
+            br.close();
         }catch(Exception e) {
             names = "";
         }
@@ -295,5 +299,15 @@ public class MainActivity extends AppCompatActivity
             }
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                currentConfig = (Home) data.getSerializableExtra("nuevaConfig");
+            }
+        }
     }
 }
