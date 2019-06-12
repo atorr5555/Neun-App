@@ -9,22 +9,23 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
-public class ChangeActivity extends AppCompatActivity {
+public class DeleteActivity extends AppCompatActivity {
+
+    ArrayList<String> profiles;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change);
+        setContentView(R.layout.activity_delete);
 
         Intent received = getIntent();
 
-        ArrayList<String> profiles = received.getStringArrayListExtra("profiles");
+        profiles = received.getStringArrayListExtra("profiles");
 
         ListView listaPerfiles = findViewById(R.id.listView);
 
@@ -36,11 +37,10 @@ public class ChangeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String name = parent.getItemAtPosition(position).toString();
-                Home newConfig = IOFiles.readConfig(name);
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("nuevaConfig", newConfig);
-                resultIntent.putExtra("name", name);
-                setResult(RESULT_OK, resultIntent);
+                profiles.remove(name);
+                IOFiles.overWriteFile(profiles);
+                IOFiles.removeFile(name);
+                Toast.makeText(getApplicationContext(), "Se ha eliminado el perfil " + name, Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

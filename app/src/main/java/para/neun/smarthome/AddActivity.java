@@ -37,7 +37,7 @@ public class AddActivity extends AppCompatActivity {
                     return;
                 }
                 if(saveConfig(name)) {
-                    writeName(name);
+                    IOFiles.writeName(name);
                     finish();
                 }
             }
@@ -150,16 +150,6 @@ public class AddActivity extends AppCompatActivity {
 
         }catch(Exception e) {
             return false;
-        }
-    }
-
-    public void writeName(String name) {
-        try {
-            File filename = new File("data/data/para.neun.smarthome/list.txt");
-            BufferedWriter bf = new BufferedWriter(new FileWriter(filename, true));
-            bf.write(name + "/");
-            bf.close();
-        }catch(Exception e) {
         }
     }
 }

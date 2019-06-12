@@ -3,7 +3,6 @@ package para.neun.smarthome;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,15 +16,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -48,9 +39,9 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-        updateList();
+        profiles = IOFiles.updateList(profiles);
 
-            currentConfig = (readConfig() == null) ? new Home() : readConfig();
+            currentConfig = (IOFiles.readConfig() == null) ? new Home() : IOFiles.readConfig();
         updateConfig();
 
         Switch switchFoco1 = findViewById(R.id.switchFoco1);
@@ -58,7 +49,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setFoco(isChecked, 1);
-                saveConfig();
+                IOFiles.saveConfig(currentConfig);
             }
         });
 
@@ -67,7 +58,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setFoco(isChecked, 2);
-                saveConfig();
+                IOFiles.saveConfig(currentConfig);
             }
         });
 
@@ -76,7 +67,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setFoco(isChecked, 3);
-                saveConfig();
+                IOFiles.saveConfig(currentConfig);
             }
         });
 
@@ -85,16 +76,16 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setFoco(isChecked, 4);
-                saveConfig();
+                IOFiles.saveConfig(currentConfig);
             }
         });
 
-        Switch switchFoco5 = findViewById(R.id.switchFoco6);
+        Switch switchFoco5 = findViewById(R.id.switchFoco5);
         switchFoco5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setFoco(isChecked, 5);
-                saveConfig();
+                IOFiles.saveConfig(currentConfig);
             }
         });
 
@@ -103,7 +94,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setFoco(isChecked, 6);
-                saveConfig();
+                IOFiles.saveConfig(currentConfig);
             }
         });
 
@@ -112,7 +103,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setFoco(isChecked, 7);
-                saveConfig();
+                IOFiles.saveConfig(currentConfig);
             }
         });
 
@@ -121,7 +112,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setFoco(isChecked, 8);
-                saveConfig();
+                IOFiles.saveConfig(currentConfig);
             }
         });
 
@@ -130,7 +121,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setPuertaPrincipal(isChecked);
-                saveConfig();
+                IOFiles.saveConfig(currentConfig);
             }
         });
 
@@ -139,7 +130,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setPuertaPatio(isChecked);
-                saveConfig();
+                IOFiles.saveConfig(currentConfig);
             }
         });
 
@@ -148,7 +139,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setPuertaCuarto(isChecked);
-                saveConfig();
+                IOFiles.saveConfig(currentConfig);
             }
         });
 
@@ -180,6 +171,10 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            profiles = IOFiles.updateList(profiles);
+            Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+            settingsIntent.putStringArrayListExtra("profiles", profiles);
+            startActivity(settingsIntent);
             return true;
         }
 
@@ -197,64 +192,37 @@ public class MainActivity extends AppCompatActivity
             startActivity(addIntent);
 
         } else if (id == R.id.nav_change) {
-            updateList();
+            profiles = IOFiles.updateList(profiles);
             Intent changeIntent = new Intent(MainActivity.this, ChangeActivity.class);
             changeIntent.putStringArrayListExtra("profiles", profiles);
             startActivityForResult(changeIntent, 1);
 
         } else if (id == R.id.nav_delete) {
+            profiles = IOFiles.updateList(profiles);
+            Intent deleteIntent = new Intent(MainActivity.this, DeleteActivity.class);
+            deleteIntent.putStringArrayListExtra("profiles", profiles);
+            startActivity(deleteIntent);
 
         } else if (id == R.id.nav_help) {
             Intent helpIntent = new Intent(MainActivity.this, HelpActivity.class);
             startActivity(helpIntent);
 
         } else if (id == R.id.nav_settings) {
-
+            profiles = IOFiles.updateList(profiles);
+            Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+            settingsIntent.putStringArrayListExtra("profiles", profiles);
+            startActivity(settingsIntent);
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-
-
-
-    public boolean saveConfig() {
-        try {
-            File filename = new File("data/data/para.neun.smarthome/currentConfig.txt");
-            if(!filename.exists()){
-                filename.createNewFile();
-            }
-            FileOutputStream out = new FileOutputStream(filename);
-            ObjectOutputStream writingFile = new ObjectOutputStream(out);
-            writingFile.writeObject(currentConfig);
-            writingFile.close();
-            return true;
-
-        }catch(Exception e) {
-            return false;
-        }
-    }
-
-
-    public Home readConfig(){
-        try {
-
-            ObjectInputStream readingFile = new ObjectInputStream(new FileInputStream("data/data/para.neun.smarthome/currentConfig.txt"));
-            Home recoveredConfig = (Home) readingFile.readObject();
-            readingFile.close();
-            return recoveredConfig;
-
-        }catch(Exception e) {
-            return null;
-        }
-    }
-
     //Actualiza valores una vez que se obtiene el deserialize
     public void updateConfig() {
         Boolean [] focos  = currentConfig.getFocos();
         final Switch [] switches = {findViewById(R.id.switchFoco1), findViewById(R.id.switchFoco2), findViewById(R.id.switchFoco3), findViewById(R.id.switchFoco4),
-                findViewById(R.id.switchFoco6), findViewById(R.id.switchFoco6), findViewById(R.id.switchFoco7), findViewById(R.id.switchFoco8)};
+                findViewById(R.id.switchFoco5), findViewById(R.id.switchFoco6), findViewById(R.id.switchFoco7), findViewById(R.id.switchFoco8)};
         for(int i = 0; i < focos.length; i++) {
                 switches[i].setChecked(focos[i]);
         }
@@ -266,41 +234,6 @@ public class MainActivity extends AppCompatActivity
 
         Switch  switchPuertaCuarto = findViewById(R.id.switchPuertaCuarto);
         switchPuertaCuarto.setChecked(currentConfig.getPuertaCuarto());
-    }
-
-
-
-    public void updateList() {
-        String names;
-
-        try {
-            File filename = new File("data/data/para.neun.smarthome/list.txt");
-            if(!filename.exists()){
-                filename.createNewFile();
-            }
-            BufferedReader br = new BufferedReader(new FileReader(filename));
-            names = br.readLine();
-            br.close();
-        }catch(Exception e) {
-            names = "";
-        }
-        if (names != null) {
-            String [] namesArray = names.split("/");
-            for (String aux : namesArray) {
-                if ((!aux.equals("")) && (!busquedaLineal(profiles, aux))){
-                    profiles.add(aux);
-                }
-            }
-        }
-    }
-
-    public boolean busquedaLineal (List<String> lista, String key) {
-        for(String aux : lista) {
-            if (key.equals(aux)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override
