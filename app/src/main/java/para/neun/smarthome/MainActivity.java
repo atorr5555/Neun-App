@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Handler mHandler = new Handler();
-    Home currentConfig;
+    public Home currentConfig;
     ArrayList<String> profiles = new ArrayList<>();
 
     @Override
@@ -38,10 +39,16 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+        String result = "";
+        try {
+             result = new DBConnectionRead().execute("").get();
+        }catch (Exception e) {
+
+        }
 
         profiles = IOFiles.updateList(profiles);
 
-            currentConfig = (IOFiles.readConfig() == null) ? new Home() : IOFiles.readConfig();
+        currentConfig = (IOFiles.readConfig() == null) ? new Home() : IOFiles.readConfig();
         updateConfig();
 
         Switch switchFoco1 = findViewById(R.id.switchFoco1);
@@ -135,13 +142,27 @@ public class MainActivity extends AppCompatActivity
         });
 
         Switch  switchPuertaCuarto = findViewById(R.id.switchPuertaCuarto);
-        switchPuertaCuarto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /**switchPuertaCuarto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setPuertaCuarto(isChecked);
                 IOFiles.saveConfig(currentConfig);
             }
-        });
+        });**/
+        switchPuertaCuarto.setClickable(false);
+
+
+        TextView temperatura = findViewById(R.id.textViewTemperaturaSala);
+        temperatura.setText(Float.toString(currentConfig.getTemperaturaSala()));
+
+        TextView humedad = findViewById(R.id.textViewHumedadSala);
+        humedad.setText(Float.toString(currentConfig.getHumedadSala()));
+
+        TextView temperaturaCuarto =  findViewById(R.id.textViewTemperaturaCuarto);
+        temperaturaCuarto.setText(Float.toString(currentConfig.getTemperaturaCuarto()));
+
+        TextView humedadCuarto = findViewById(R.id.textViewTemperaturaCuarto);
+        humedadCuarto.setText(Float.toString(currentConfig.getHumedadCuarto()));
 
     }
 
@@ -234,6 +255,18 @@ public class MainActivity extends AppCompatActivity
 
         Switch  switchPuertaCuarto = findViewById(R.id.switchPuertaCuarto);
         switchPuertaCuarto.setChecked(currentConfig.getPuertaCuarto());
+
+        TextView temperatura = findViewById(R.id.textViewTemperaturaSala);
+        temperatura.setText(Float.toString(currentConfig.getTemperaturaSala()));
+
+        TextView humedad = findViewById(R.id.textViewHumedadSala);
+        humedad.setText(Float.toString(currentConfig.getHumedadSala()));
+
+        TextView temperaturaCuarto =  findViewById(R.id.textViewTemperaturaCuarto);
+        temperaturaCuarto.setText(Float.toString(currentConfig.getTemperaturaCuarto()));
+
+        TextView humedadCuarto = findViewById(R.id.textViewTemperaturaCuarto);
+        humedadCuarto.setText(Float.toString(currentConfig.getHumedadCuarto()));
     }
 
     @Override

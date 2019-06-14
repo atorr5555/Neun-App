@@ -8,8 +8,10 @@ public class Home implements java.io.Serializable{
     private Boolean puertaPrincipal;
     private Boolean puertaPatio;
     private Boolean puertaCuarto;
-    private float temperatura;
-    private float humedad;
+    private float temperaturaSala;
+    private float humedadSala;
+    private float temperaturaCuarto;
+    private float humedadCuarto;
 
     public Home() {
         puertaPrincipal = false;
@@ -99,35 +101,35 @@ public class Home implements java.io.Serializable{
         this.puertaCuarto = puertaCuarto;
     }
 
-    /**
-     *
-     * @return Valor de la temperatura dentro de la casa
-     */
-    public float getTemperatura() {
-        return temperatura;
+    public float getTemperaturaCuarto() {
+        return temperaturaCuarto;
     }
 
-    /**
-     *
-     * @param temperatura Nuevo valor de la temperatura leído por el sensor
-     */
-    public void setTemperatura(float temperatura) {
-        this.temperatura = temperatura;
+    public void setTemperaturaCuarto(float temperaturaCuarto) {
+        this.temperaturaCuarto = temperaturaCuarto;
     }
 
-    /**
-     *
-     * @return Valor de la humedad dentro de la casa
-     */
-    public float getHumedad() {
-        return humedad;
+    public float getTemperaturaSala() {
+        return temperaturaSala;
     }
 
-    /**
-     *
-     * @param humedad Nuevo valor de la humedad leído por el sensor
-     */
-    public void setHumedad(float humedad) {
-        this.humedad = humedad;
+    public void setTemperaturaSala(float temperaturaSala) {
+        this.temperaturaSala = temperaturaSala;
+    }
+
+    public float getHumedadCuarto() {
+        return humedadCuarto;
+    }
+
+    public void setHumedadCuarto(float humedadCuarto) {
+        this.humedadCuarto = humedadCuarto;
+    }
+
+    public float getHumedadSala() {
+        return humedadSala;
+    }
+
+    public void setHumedadSala(float humedadSala) {
+        this.humedadSala = humedadSala;
     }
 }

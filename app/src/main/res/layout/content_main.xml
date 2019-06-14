@@ -65,7 +65,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="Foco 4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/switchFoco3"
         app:layout_constraintTop_toBottomOf="@+id/textViewFocosTitle" />
 
@@ -94,8 +98,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="Foco 8"
-        app:layout_constraintEnd_toEndOf="@+id/switchFoco4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/switchFoco4"
         app:layout_constraintTop_toBottomOf="@+id/switchFoco4" />
 
@@ -171,49 +178,117 @@
         app:layout_constraintTop_toBottomOf="@+id/switchPuertaPrincipal" />
 
     <TextView
-        android:id="@+id/textViewTemperatura"
+        android:id="@+id/textViewTemperaturaSala"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="Temperatura"
-        app:layout_constraintStart_toStartOf="@+id/textViewTempHeader"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTempHeader" />
+        app:layout_constraintStart_toStartOf="@+id/textViewSala"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSala" />
 
     <TextView
         android:id="@+id/textViewGrados"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="20dp"
         android:text="℃"
         android:textColor="@android:color/background_dark"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/textViewTemperatura"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTempHeader" />
+        app:layout_constraintStart_toEndOf="@+id/textViewTemperaturaCuarto"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCuarto" />
 
     <TextView
-        android:id="@+id/textViewHumedad"
+        android:id="@+id/textViewGrados2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
+        android:text="℃"
+        android:textColor="@android:color/background_dark"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/textViewTemperaturaSala"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSala" />
+
+    <TextView
+        android:id="@+id/textViewHumedadSala"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
         android:text="Humedad"
         app:layout_constraintStart_toEndOf="@+id/textViewGrados"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTempHeader" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewSala" />
 
     <TextView
         android:id="@+id/textViewPorcentaje"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="20dp"
         android:text="%"
         android:textColor="@android:color/background_dark"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/textViewHumedad"
+        app:layout_constraintStart_toEndOf="@+id/textViewHumedadCuarto"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCuarto" />
+
+    <TextView
+        android:id="@+id/textViewPorcentaje2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:text="%"
+        android:textColor="@android:color/background_dark"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/textViewHumedadSala"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSala" />
+
+    <TextView
+        android:id="@+id/textViewSala"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="12dp"
+        android:text="Sala"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textViewTempHeader"
         app:layout_constraintTop_toBottomOf="@+id/textViewTempHeader" />
+
+    <TextView
+        android:id="@+id/textViewCuarto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Cuarto"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textViewTemperaturaSala"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTemperaturaSala" />
+
+    <TextView
+        android:id="@+id/textViewTemperaturaCuarto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Temperatura"
+        app:layout_constraintStart_toStartOf="@+id/textViewCuarto"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCuarto" />
+
+    <TextView
+        android:id="@+id/textViewHumedadCuarto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="20dp"
+        android:text="Humedad "
+        app:layout_constraintStart_toEndOf="@+id/textViewGrados"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCuarto" />
 
 </android.support.constraint.ConstraintLayout>

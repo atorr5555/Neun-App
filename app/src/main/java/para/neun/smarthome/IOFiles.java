@@ -177,4 +177,91 @@ public class IOFiles {
         }
     }
 
+    public static void writeLeds(Boolean [] leds){
+        try {
+            File filename = new File("data/data/para.neun.smarthome/leds.txt");
+            if(!filename.exists()){
+                filename.createNewFile();
+            }
+            FileOutputStream out = new FileOutputStream(filename);
+            ObjectOutputStream writingFile = new ObjectOutputStream(out);
+            writingFile.writeObject(leds);
+            writingFile.close();
+
+        }catch(Exception e) {
+        }
+    }
+
+    public static Boolean [] readLeds() {
+        try {
+
+            ObjectInputStream readingFile = new ObjectInputStream(new FileInputStream("data/data/para.neun.smarthome/leds.txt"));
+            Boolean [] recoveredLeds = (Boolean[]) readingFile.readObject();
+            readingFile.close();
+            return recoveredLeds;
+
+        }catch(Exception e) {
+            return null;
+        }
+    }
+
+    public static void writePuertaPrincipal(Boolean state) {
+        try {
+            File filename = new File("data/data/para.neun.smarthome/pprincipal.txt");
+            if(!filename.exists()){
+                filename.createNewFile();
+            }
+            FileOutputStream out = new FileOutputStream(filename);
+            ObjectOutputStream writingFile = new ObjectOutputStream(out);
+            writingFile.writeObject(state);
+            writingFile.close();
+
+        }catch(Exception e) {
+        }
+    }
+
+    public static Boolean readPuertaPrincipal() {
+        try {
+
+            ObjectInputStream readingFile = new ObjectInputStream(new FileInputStream("data/data/para.neun.smarthome/pprincipal.txt"));
+            Boolean state = (Boolean) readingFile.readObject();
+            readingFile.close();
+            return state;
+
+        }catch(Exception e) {
+            return null;
+        }
+    }
+
+    public static void writeTYH(Float [] tyh) {
+        try {
+            File filename = new File("data/data/para.neun.smarthome/tyh.txt");
+            if(!filename.exists()){
+                filename.createNewFile();
+            }
+            FileOutputStream out = new FileOutputStream(filename);
+            ObjectOutputStream writingFile = new ObjectOutputStream(out);
+            writingFile.writeObject(tyh);
+            writingFile.close();
+
+        }catch(Exception e) {
+        }
+    }
+
+    public static Float [] readTYH() {
+        try {
+            ObjectInputStream readingFile = new ObjectInputStream(new FileInputStream("data/data/para.neun.smarthome/tyh.txt"));
+            Float [] tyh = {0.0f, 0.0f, 0.0f, 0.0f};
+            Float [] readValue = (Float[]) readingFile.readObject();
+            readingFile.close();
+            if (readValue == null) {
+                return tyh;
+            }
+            return tyh;
+        }catch(Exception e) {
+            Float [] tyh = {0.0f, 0.0f, 0.0f, 0.0f};
+            return tyh;
+        }
+    }
+
 }
