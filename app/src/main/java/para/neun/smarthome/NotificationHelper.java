@@ -35,10 +35,17 @@ public class NotificationHelper extends ContextWrapper {
         return mManager;
     }
 
-    public NotificationCompat.Builder getChannelNotification() {
+    public NotificationCompat.Builder getChannelNotificationChangeConfig() {
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
                 .setContentTitle("Smart Home")
                 .setContentText("El perfil de configuración ha cambiado")
+                .setSmallIcon(R.drawable.ic_android);
+    }
+
+    public NotificationCompat.Builder getChannelNotification(String alert) {
+        return new NotificationCompat.Builder(getApplicationContext(), channelID)
+                .setContentTitle("Smart Home")
+                .setContentText(alert)
                 .setSmallIcon(R.drawable.ic_android);
     }
 }

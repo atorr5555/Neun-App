@@ -31,6 +31,20 @@ public class IOFiles {
         }
         Home newConfig = readConfig(profileName);
         saveConfig(newConfig);
+        String [] estados = {"", "", "", "", "", "", "", ""};
+        Boolean [] focos = newConfig.getFocos();
+        for (int i = 0; i <  focos.length; i++) {
+            estados[i] = (focos[i]) ? "TRUE" : "FALSE";
+        }
+        new DBConnectionWrite().execute("update neun_states set state = (case when device_name = 'led_1' then " + estados[0] + " " +
+                "when device_name = 'led_2' then " + estados[1] + " " +
+                "when device_name = 'led_3' then " + estados[2] + " " +
+                "when device_name = 'led_4' then " + estados[3] + " " +
+                "when device_name = 'led_5' then " + estados[4] + " " +
+                "when device_name = 'led_6' then " + estados[5] + " " +
+                "when device_name = 'led_7' then " + estados[6] + " " +
+                "when device_name = 'led_8' then " + estados[7] + " " + "end)" +
+                "where device_name in ('led_1', 'led_2', 'led_3', 'led_4', 'led_5', 'led_6', 'led_7', 'led_8');");
     }
 
     public static boolean saveConfig(Home currentConfig) {
@@ -176,92 +190,4 @@ public class IOFiles {
 
         }
     }
-
-    public static void writeLeds(Boolean [] leds){
-        try {
-            File filename = new File("data/data/para.neun.smarthome/leds.txt");
-            if(!filename.exists()){
-                filename.createNewFile();
-            }
-            FileOutputStream out = new FileOutputStream(filename);
-            ObjectOutputStream writingFile = new ObjectOutputStream(out);
-            writingFile.writeObject(leds);
-            writingFile.close();
-
-        }catch(Exception e) {
-        }
-    }
-
-    public static Boolean [] readLeds() {
-        try {
-
-            ObjectInputStream readingFile = new ObjectInputStream(new FileInputStream("data/data/para.neun.smarthome/leds.txt"));
-            Boolean [] recoveredLeds = (Boolean[]) readingFile.readObject();
-            readingFile.close();
-            return recoveredLeds;
-
-        }catch(Exception e) {
-            return null;
-        }
-    }
-
-    public static void writePuertaPrincipal(Boolean state) {
-        try {
-            File filename = new File("data/data/para.neun.smarthome/pprincipal.txt");
-            if(!filename.exists()){
-                filename.createNewFile();
-            }
-            FileOutputStream out = new FileOutputStream(filename);
-            ObjectOutputStream writingFile = new ObjectOutputStream(out);
-            writingFile.writeObject(state);
-            writingFile.close();
-
-        }catch(Exception e) {
-        }
-    }
-
-    public static Boolean readPuertaPrincipal() {
-        try {
-
-            ObjectInputStream readingFile = new ObjectInputStream(new FileInputStream("data/data/para.neun.smarthome/pprincipal.txt"));
-            Boolean state = (Boolean) readingFile.readObject();
-            readingFile.close();
-            return state;
-
-        }catch(Exception e) {
-            return null;
-        }
-    }
-
-    public static void writeTYH(Float [] tyh) {
-        try {
-            File filename = new File("data/data/para.neun.smarthome/tyh.txt");
-            if(!filename.exists()){
-                filename.createNewFile();
-            }
-            FileOutputStream out = new FileOutputStream(filename);
-            ObjectOutputStream writingFile = new ObjectOutputStream(out);
-            writingFile.writeObject(tyh);
-            writingFile.close();
-
-        }catch(Exception e) {
-        }
-    }
-
-    public static Float [] readTYH() {
-        try {
-            ObjectInputStream readingFile = new ObjectInputStream(new FileInputStream("data/data/para.neun.smarthome/tyh.txt"));
-            Float [] tyh = {0.0f, 0.0f, 0.0f, 0.0f};
-            Float [] readValue = (Float[]) readingFile.readObject();
-            readingFile.close();
-            if (readValue == null) {
-                return tyh;
-            }
-            return tyh;
-        }catch(Exception e) {
-            Float [] tyh = {0.0f, 0.0f, 0.0f, 0.0f};
-            return tyh;
-        }
-    }
-
 }

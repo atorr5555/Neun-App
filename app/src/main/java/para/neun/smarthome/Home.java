@@ -12,11 +12,17 @@ public class Home implements java.io.Serializable{
     private float humedadSala;
     private float temperaturaCuarto;
     private float humedadCuarto;
+    private Boolean fuego;
+    private Boolean gas;
+    private Boolean ventana;
 
     public Home() {
         puertaPrincipal = false;
         puertaPatio = false;
         puertaCuarto = false;
+        fuego = false;
+        ventana = false;
+        gas = false;
     }
 
     /**
@@ -101,20 +107,27 @@ public class Home implements java.io.Serializable{
         this.puertaCuarto = puertaCuarto;
     }
 
-    public float getTemperaturaCuarto() {
-        return temperaturaCuarto;
-    }
-
-    public void setTemperaturaCuarto(float temperaturaCuarto) {
-        this.temperaturaCuarto = temperaturaCuarto;
-    }
-
     public float getTemperaturaSala() {
         return temperaturaSala;
     }
 
     public void setTemperaturaSala(float temperaturaSala) {
         this.temperaturaSala = temperaturaSala;
+    }
+    public float getHumedadSala() {
+        return humedadSala;
+    }
+
+    public void setHumedadSala(float humedadSala) {
+        this.humedadSala = humedadSala;
+    }
+
+    public float getTemperaturaCuarto() {
+        return temperaturaCuarto;
+    }
+
+    public void setTemperaturaCuarto(float temperaturaCuarto) {
+        this.temperaturaCuarto = temperaturaCuarto;
     }
 
     public float getHumedadCuarto() {
@@ -125,11 +138,27 @@ public class Home implements java.io.Serializable{
         this.humedadCuarto = humedadCuarto;
     }
 
-    public float getHumedadSala() {
-        return humedadSala;
+    public Boolean getFuego() {
+        return fuego;
     }
 
-    public void setHumedadSala(float humedadSala) {
-        this.humedadSala = humedadSala;
+    public void setFuego(Boolean fuego) {
+        this.fuego = fuego;
+    }
+
+    public Boolean getGas() {
+        return gas;
+    }
+
+    public void setGas(Boolean gas) {
+        this.gas = gas;
+    }
+
+    public Boolean getVentana() {
+        return ventana;
+    }
+
+    public void setVentana(Boolean ventana) {
+        this.ventana = ventana;
     }
 }

@@ -118,13 +118,4 @@ public class SetHourActivity extends AppCompatActivity implements TimePickerDial
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
 
-    private void cancelAlarm() {
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
-
-        alarmManager.cancel(pendingIntent);
-        Toast.makeText(getApplicationContext(), "Horario eliminado", Toast.LENGTH_SHORT).show();
-    }
-
 }

@@ -1,9 +1,11 @@
 package para.neun.smarthome;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
@@ -12,7 +14,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +28,10 @@ public class MainActivity extends AppCompatActivity
 
     private Handler mHandler = new Handler();
     public Home currentConfig;
+    public Home oldConfig = new Home();
     ArrayList<String> profiles = new ArrayList<>();
+    private final static int INTERVAL = 1000 * 60;
+    int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +47,10 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
         String result = "";
+
         try {
              result = new DBConnectionRead().execute("").get();
         }catch (Exception e) {
-
         }
 
         profiles = IOFiles.updateList(profiles);
@@ -57,6 +64,12 @@ public class MainActivity extends AppCompatActivity
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setFoco(isChecked, 1);
                 IOFiles.saveConfig(currentConfig);
+                String myState = isChecked ? "TRUE" : "FALSE";
+                try {
+                    new DBConnectionWrite().execute("led_1", myState);
+                }catch (Exception e) {
+
+                }
             }
         });
 
@@ -66,6 +79,12 @@ public class MainActivity extends AppCompatActivity
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setFoco(isChecked, 2);
                 IOFiles.saveConfig(currentConfig);
+                String myState = isChecked ? "TRUE" : "FALSE";
+                try {
+                    new DBConnectionWrite().execute("led_2", myState);
+                }catch (Exception e) {
+
+                }
             }
         });
 
@@ -75,6 +94,12 @@ public class MainActivity extends AppCompatActivity
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setFoco(isChecked, 3);
                 IOFiles.saveConfig(currentConfig);
+                String myState = isChecked ? "TRUE" : "FALSE";
+                try {
+                    new DBConnectionWrite().execute("led_3", myState);
+                }catch (Exception e) {
+
+                }
             }
         });
 
@@ -84,6 +109,12 @@ public class MainActivity extends AppCompatActivity
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setFoco(isChecked, 4);
                 IOFiles.saveConfig(currentConfig);
+                String myState = isChecked ? "TRUE" : "FALSE";
+                try {
+                    new DBConnectionWrite().execute("led_4", myState);
+                }catch (Exception e) {
+
+                }
             }
         });
 
@@ -93,6 +124,12 @@ public class MainActivity extends AppCompatActivity
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setFoco(isChecked, 5);
                 IOFiles.saveConfig(currentConfig);
+                String myState = isChecked ? "TRUE" : "FALSE";
+                try {
+                    new DBConnectionWrite().execute("led_5", myState);
+                }catch (Exception e) {
+
+                }
             }
         });
 
@@ -102,6 +139,12 @@ public class MainActivity extends AppCompatActivity
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setFoco(isChecked, 6);
                 IOFiles.saveConfig(currentConfig);
+                String myState = isChecked ? "TRUE" : "FALSE";
+                try {
+                    new DBConnectionWrite().execute("led_6", myState);
+                }catch (Exception e) {
+
+                }
             }
         });
 
@@ -111,6 +154,12 @@ public class MainActivity extends AppCompatActivity
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setFoco(isChecked, 7);
                 IOFiles.saveConfig(currentConfig);
+                String myState = isChecked ? "TRUE" : "FALSE";
+                try {
+                    new DBConnectionWrite().execute("led_7", myState);
+                }catch (Exception e) {
+
+                }
             }
         });
 
@@ -120,6 +169,12 @@ public class MainActivity extends AppCompatActivity
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setFoco(isChecked, 8);
                 IOFiles.saveConfig(currentConfig);
+                String myState = isChecked ? "TRUE" : "FALSE";
+                try {
+                    new DBConnectionWrite().execute("led_8", myState);
+                }catch (Exception e) {
+
+                }
             }
         });
 
@@ -142,13 +197,6 @@ public class MainActivity extends AppCompatActivity
         });
 
         Switch  switchPuertaCuarto = findViewById(R.id.switchPuertaCuarto);
-        /**switchPuertaCuarto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                currentConfig.setPuertaCuarto(isChecked);
-                IOFiles.saveConfig(currentConfig);
-            }
-        });**/
         switchPuertaCuarto.setClickable(false);
 
 
@@ -158,13 +206,29 @@ public class MainActivity extends AppCompatActivity
         TextView humedad = findViewById(R.id.textViewHumedadSala);
         humedad.setText(Float.toString(currentConfig.getHumedadSala()));
 
-        TextView temperaturaCuarto =  findViewById(R.id.textViewTemperaturaCuarto);
+        TextView temperaturaCuarto = findViewById(R.id.textViewTemperaturaCuarto);
         temperaturaCuarto.setText(Float.toString(currentConfig.getTemperaturaCuarto()));
 
-        TextView humedadCuarto = findViewById(R.id.textViewTemperaturaCuarto);
+        TextView humedadCuarto = findViewById(R.id.textViewHumedadCuarto);
         humedadCuarto.setText(Float.toString(currentConfig.getHumedadCuarto()));
 
+        startRepeating();
+
     }
+
+    public void startRepeating () {
+        mHandler.postDelayed(mToastRunnable, 1000 * 15);
+    }
+
+    private Runnable mToastRunnable = new Runnable() {
+        @Override
+        public void run() {
+            new DBConnectionRead().execute("");
+            currentConfig = IOFiles.readConfig();
+            updateConfigNODB();
+            mHandler.postDelayed(this, 1000 * 15);
+        }
+    };
 
     @Override
     public void onBackPressed() {
@@ -239,13 +303,12 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    //Actualiza valores una vez que se obtiene el deserialize
-    public void updateConfig() {
+    public void updateConfigNODB() {
         Boolean [] focos  = currentConfig.getFocos();
         final Switch [] switches = {findViewById(R.id.switchFoco1), findViewById(R.id.switchFoco2), findViewById(R.id.switchFoco3), findViewById(R.id.switchFoco4),
                 findViewById(R.id.switchFoco5), findViewById(R.id.switchFoco6), findViewById(R.id.switchFoco7), findViewById(R.id.switchFoco8)};
         for(int i = 0; i < focos.length; i++) {
-                switches[i].setChecked(focos[i]);
+            switches[i].setChecked(focos[i]);
         }
         Switch  switchPuertaPrincipal = findViewById(R.id.switchPuertaPrincipal);
         switchPuertaPrincipal.setChecked(currentConfig.getPuertaPrincipal());
@@ -262,22 +325,135 @@ public class MainActivity extends AppCompatActivity
         TextView humedad = findViewById(R.id.textViewHumedadSala);
         humedad.setText(Float.toString(currentConfig.getHumedadSala()));
 
-        TextView temperaturaCuarto =  findViewById(R.id.textViewTemperaturaCuarto);
+        TextView temperaturaCuarto = findViewById(R.id.textViewTemperaturaCuarto);
         temperaturaCuarto.setText(Float.toString(currentConfig.getTemperaturaCuarto()));
 
-        TextView humedadCuarto = findViewById(R.id.textViewTemperaturaCuarto);
+        TextView humedadCuarto = findViewById(R.id.textViewHumedadCuarto);
         humedadCuarto.setText(Float.toString(currentConfig.getHumedadCuarto()));
+
+        reviewAlarms();
     }
 
+    //Actualiza valores una vez que se obtiene el deserialize
+    public void updateConfig() {
+        Boolean [] focos  = currentConfig.getFocos();
+        final Switch [] switches = {findViewById(R.id.switchFoco1), findViewById(R.id.switchFoco2), findViewById(R.id.switchFoco3), findViewById(R.id.switchFoco4),
+                findViewById(R.id.switchFoco5), findViewById(R.id.switchFoco6), findViewById(R.id.switchFoco7), findViewById(R.id.switchFoco8)};
+        String [] estados = {"", "", "", "", "", "", "", ""};
+        for(int i = 0; i < focos.length; i++) {
+            switches[i].setChecked(focos[i]);
+            estados[i] = (focos[i]) ? "TRUE" : "FALSE";
+        }
+        try {
+            new DBConnectionWrite().execute("update neun_states set state = (case when device_name = 'led_1' then " + estados[0] + " " +
+                    "when device_name = 'led_2' then " + estados[1] + " " +
+                    "when device_name = 'led_3' then " + estados[2] + " " +
+                    "when device_name = 'led_4' then " + estados[3] + " " +
+                    "when device_name = 'led_5' then " + estados[4] + " " +
+                    "when device_name = 'led_6' then " + estados[5] + " " +
+                    "when device_name = 'led_7' then " + estados[6] + " " +
+                    "when device_name = 'led_8' then " + estados[7] + " " + "end)" +
+                    "where device_name in ('led_1', 'led_2', 'led_3', 'led_4', 'led_5', 'led_6', 'led_7', 'led_8');");
+        } catch (Exception e) {
+
+        }
+
+        Switch  switchPuertaPrincipal = findViewById(R.id.switchPuertaPrincipal);
+        switchPuertaPrincipal.setChecked(currentConfig.getPuertaPrincipal());
+
+        Switch  switchPuertaPatio = findViewById(R.id.switchPuertaPatio);
+        switchPuertaPatio.setChecked(currentConfig.getPuertaPatio());
+
+        Switch  switchPuertaCuarto = findViewById(R.id.switchPuertaCuarto);
+        switchPuertaCuarto.setChecked(currentConfig.getPuertaCuarto());
+
+        TextView temperatura = findViewById(R.id.textViewTemperaturaSala);
+        temperatura.setText(Float.toString(currentConfig.getTemperaturaSala()));
+
+        TextView humedad = findViewById(R.id.textViewHumedadSala);
+        humedad.setText(Float.toString(currentConfig.getHumedadSala()));
+
+        TextView temperaturaCuarto = findViewById(R.id.textViewTemperaturaCuarto);
+        temperaturaCuarto.setText(Float.toString(currentConfig.getTemperaturaCuarto()));
+
+        TextView humedadCuarto = findViewById(R.id.textViewHumedadCuarto);
+        humedadCuarto.setText(Float.toString(currentConfig.getHumedadCuarto()));
+
+        reviewAlarms();
+
+    }
+
+    public void reviewAlarms() {
+        if (currentConfig.getGas() && currentConfig.getFuego() && currentConfig.getVentana()) {
+            NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
+            NotificationCompat.Builder nb = notificationHelper.getChannelNotification("Alerta de fuego, gas y alguien ha abierto la ventana");
+            notificationHelper.getManager().notify(1, nb.build());
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+            callIntent.setData(Uri.parse("tel:"+911));
+            startActivity(callIntent);
+        }
+
+        if (currentConfig.getGas() && currentConfig.getFuego() && !currentConfig.getVentana()) {
+            NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
+            NotificationCompat.Builder nb = notificationHelper.getChannelNotification("Alerta de fuego y gas");
+            notificationHelper.getManager().notify(1, nb.build());
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+            callIntent.setData(Uri.parse("tel:"+911));
+            startActivity(callIntent);
+        }
+
+        if (currentConfig.getGas() && !currentConfig.getFuego() && !currentConfig.getVentana()) {
+            NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
+            NotificationCompat.Builder nb = notificationHelper.getChannelNotification("Alerta de gas");
+            notificationHelper.getManager().notify(1, nb.build());
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+            callIntent.setData(Uri.parse("tel:"+911));
+            startActivity(callIntent);
+        }
+
+        if (!currentConfig.getGas() && currentConfig.getFuego() && currentConfig.getVentana()) {
+            NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
+            NotificationCompat.Builder nb = notificationHelper.getChannelNotification("Alerta de fuego y alguien ha abierto la ventana");
+            notificationHelper.getManager().notify(1, nb.build());
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+            callIntent.setData(Uri.parse("tel:"+911));
+            startActivity(callIntent);
+        }
+
+        if (!currentConfig.getGas() && !currentConfig.getFuego() && currentConfig.getVentana()) {
+            NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
+            NotificationCompat.Builder nb = notificationHelper.getChannelNotification("Alerta, alguien ha abierto la ventana");
+            notificationHelper.getManager().notify(1, nb.build());
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+            callIntent.setData(Uri.parse("tel:"+911));
+            startActivity(callIntent);
+        }
+
+        if (!currentConfig.getGas() && currentConfig.getFuego() && !currentConfig.getVentana()) {
+            NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
+            NotificationCompat.Builder nb = notificationHelper.getChannelNotification("Alerta de fuego");
+            notificationHelper.getManager().notify(1, nb.build());
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+            callIntent.setData(Uri.parse("tel:"+911));
+            startActivity(callIntent);
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
+                oldConfig = currentConfig;
                 currentConfig = (Home) data.getSerializableExtra("nuevaConfig");
+                currentConfig.setTemperaturaSala(oldConfig.getTemperaturaSala());
+                currentConfig.setHumedadSala(oldConfig.getHumedadSala());
+                currentConfig.setTemperaturaCuarto(oldConfig.getTemperaturaCuarto());
+                currentConfig.setHumedadCuarto(oldConfig.getHumedadCuarto());
                 updateConfig();
                 Toast.makeText(getApplicationContext(), "Cambió a perfil " + data.getStringExtra("name"), Toast.LENGTH_SHORT).show();
             }
         }
     }
+
+
 }
