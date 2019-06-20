@@ -146,6 +146,11 @@ public class AddActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Guarda la configuración seleccionada por el usuario
+     * @param name Nombre de la confiiguración
+     * @return True si se guardó la configuación, false si no se logró guardar
+     */
     public boolean saveConfig(String name) {
         try {
             File filename = new File("data/data/para.neun.smarthome/" + name +".txt");

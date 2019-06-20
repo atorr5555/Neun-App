@@ -107,57 +107,114 @@ public class Home implements java.io.Serializable{
         this.garage= garage;
     }
 
+    /**
+     *
+     * @return Temperatura actual de la sala
+     */
     public float getTemperaturaSala() {
         return temperaturaSala;
     }
 
+    /**
+     *
+     * @param temperaturaSala Nueva temperatura de la sala
+     */
     public void setTemperaturaSala(float temperaturaSala) {
         this.temperaturaSala = temperaturaSala;
     }
+
+    /**
+     *
+     * @return Humedad de la sala
+     */
     public float getHumedadSala() {
         return humedadSala;
     }
 
+    /**
+     *
+     * @param humedadSala Nueva humedad de la sala
+     */
     public void setHumedadSala(float humedadSala) {
         this.humedadSala = humedadSala;
     }
 
+    /**
+     *
+     * @return Temperatura del cuarto
+     */
     public float getTemperaturaCuarto() {
         return temperaturaCuarto;
     }
 
+    /**
+     *
+     * @param temperaturaCuarto Nueva temperatura del cuarto
+     */
     public void setTemperaturaCuarto(float temperaturaCuarto) {
         this.temperaturaCuarto = temperaturaCuarto;
     }
 
+    /**
+     *
+     * @return Humedad del cuarto
+     */
     public float getHumedadCuarto() {
         return humedadCuarto;
     }
 
+    /**
+     *
+     * @param humedadCuarto Nueva humedad del cuarto
+     */
     public void setHumedadCuarto(float humedadCuarto) {
         this.humedadCuarto = humedadCuarto;
     }
 
+    /**
+     *
+     * @return Estado de la alerta de fuego
+     */
     public Boolean getFuego() {
         return fuego;
     }
 
+    /**
+     *
+     * @param fuego Nuevo estado de la alerta de fuego
+     */
     public void setFuego(Boolean fuego) {
         this.fuego = fuego;
     }
 
+    /**
+     *
+     * @return Estado de la alerta de gas
+     */
     public Boolean getGas() {
         return gas;
     }
 
+    /**
+     *
+     * @param gas Nuevo estado de la alerta de gas
+     */
     public void setGas(Boolean gas) {
         this.gas = gas;
     }
 
+    /**
+     *
+     * @return Estado de la ventana
+     */
     public Boolean getVentana() {
         return ventana;
     }
 
+    /**
+     *
+     * @param ventana Nuevo estado de la ventana
+     */
     public void setVentana(Boolean ventana) {
         this.ventana = ventana;
     }

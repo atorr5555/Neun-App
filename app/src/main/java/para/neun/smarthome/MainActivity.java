@@ -293,10 +293,16 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    /**
+     * Comienza a repetir la lectura periódica de la base de datos
+     */
     public void startRepeating () {
         mHandler.postDelayed(mToastRunnable, 1000 * 15);
     }
 
+    /**
+     * Runnable que lee la base de datos
+     */
     private Runnable mToastRunnable = new Runnable() {
         @Override
         public void run() {
@@ -380,6 +386,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Actualiza la configuración sin configurar la base de datos
+     */
     public void updateConfigNODB() {
         Boolean [] focos  = currentConfig.getFocos();
         final Switch [] switches = {findViewById(R.id.switchFoco1), findViewById(R.id.switchFoco2), findViewById(R.id.switchFoco3), findViewById(R.id.switchFoco4),
@@ -415,7 +424,9 @@ public class MainActivity extends AppCompatActivity
         reviewAlarms();
     }
 
-    //Actualiza valores una vez que se obtiene el deserialize
+    /**
+     * Actualiza la configuración
+     */
     public void updateConfig() {
         Boolean [] focos  = currentConfig.getFocos();
         final Switch [] switches = {findViewById(R.id.switchFoco1), findViewById(R.id.switchFoco2), findViewById(R.id.switchFoco3), findViewById(R.id.switchFoco4),
@@ -476,6 +487,9 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    /**
+     * Revisa si se ha activado alguna alarma
+     */
     public void reviewAlarms() {
         if (currentConfig.getGas() && currentConfig.getFuego()) {
             NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());

@@ -13,8 +13,14 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * Funciones de escritura de archivos en memoria
+ */
 public class IOFiles {
 
+    /**
+     * Cambia la configuración establecida cuando es la hora de que cambie a un determinado perfil
+     */
     public static void changeConfig() {
         String profileName = "";
         Calendar c = Calendar.getInstance();
@@ -55,6 +61,11 @@ public class IOFiles {
                 "where device_name in ('led_1', 'led_2', 'led_3', 'led_4', 'led_5', 'led_6', 'led_7', 'led_8', 'led_9', 'led_10', 'p_principal', 'p_patio', 'garage');");
     }
 
+    /**
+     * Escribe en un archivo la nueva configuración actual
+     * @param currentConfig Nueva configuración
+     * @return true si logró guardar la configuración y false si no se pudo guardar
+     */
     public static boolean saveConfig(Home currentConfig) {
         try {
             File filename = new File("data/data/para.neun.smarthome/currentConfig.txt");
@@ -73,6 +84,10 @@ public class IOFiles {
     }
 
 
+    /**
+     * Lee la configuración de un archivo en memoria del dispositivo
+     * @return COnfiguración actual de la casa
+     */
     public static Home readConfig(){
         try {
 
@@ -86,6 +101,11 @@ public class IOFiles {
         }
     }
 
+    /**
+     * Actualiza la lista de perfiles de configuración
+     * @param profiles lista de perfiles de configuración guardados
+     * @return Nueva lista de perfiles de configuración guardados
+     */
     public static ArrayList<String> updateList(ArrayList<String> profiles) {
         String names;
         profiles = new ArrayList<>();
@@ -112,6 +132,11 @@ public class IOFiles {
         return profiles;
     }
 
+    /**
+     * Actualiza la lista de horarios programados
+     * @param horarios Lista de horarios programados guardados
+     * @return Nueva lista de horarios guardados
+     */
     public static ArrayList<String> updateHorarios(ArrayList<String> horarios) {
         String names;
         horarios = new ArrayList<>();
@@ -135,6 +160,12 @@ public class IOFiles {
         return horarios;
     }
 
+    /**
+     * Escribe un nuevo horario en el archivo de horarios programados
+     * @param name Nombre del horario
+     * @param hour Hora a la que se activa
+     * @param minute Minuto en el que se activa
+     */
     public static void writeHour(String name, int hour, int minute) {
         try {
             File filename = new File("data/data/para.neun.smarthome/horarios.txt");
@@ -149,6 +180,10 @@ public class IOFiles {
         }
     }
 
+    /**
+     * Escribe un nombre en la lista de perfiles guardados
+     * @param name Nombre del perfil agregado
+     */
     public static void writeName(String name) {
         try {
             File filename = new File("data/data/para.neun.smarthome/list.txt");
@@ -159,6 +194,11 @@ public class IOFiles {
         }
     }
 
+    /**
+     * Lee una configuración guaradada desde su archivo y lo deserializa
+     * @param name Nombre del perfil
+     * @return Perfil que se obtuvo al deserializar
+     */
     public static Home readConfig(String name){
         try {
 
@@ -172,6 +212,10 @@ public class IOFiles {
         }
     }
 
+    /**
+     *  Sobreescribe el archivo que contiene los perfiles de configuración
+     * @param profiles
+     */
     public static void overWriteFile(ArrayList<String> profiles) {
         String toWrite = "";
         for (String aux : profiles) {
@@ -190,6 +234,10 @@ public class IOFiles {
         }
     }
 
+    /**
+     * Elimina un archivo de configuración cuando el usuario decide borrar un perfil
+     * @param name Nombre del perfil a eliminar
+     */
     public static void removeFile (String name) {
         try {
             File filename = new File("data/data/para.neun.smarthome/" + name + ".txt");

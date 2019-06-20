@@ -5,6 +5,9 @@ import android.os.AsyncTask;
 
 import java.sql.*;
 
+/**
+ * Lee la base de datos y obtiene el estado de los focos, puertas y las alertas
+ */
 public class DBConnectionRead extends AsyncTask<String, String, String> {
 
     @Override

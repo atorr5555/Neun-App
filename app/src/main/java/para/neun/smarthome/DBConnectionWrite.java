@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
+/**
+ * Escribe en la base de datos utilizando updates
+ */
 public class DBConnectionWrite extends AsyncTask<String, String, String> {
     Connection conn = null;
 
