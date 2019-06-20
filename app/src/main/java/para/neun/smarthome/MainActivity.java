@@ -14,9 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,8 +28,6 @@ public class MainActivity extends AppCompatActivity
     public Home currentConfig;
     public Home oldConfig = new Home();
     ArrayList<String> profiles = new ArrayList<>();
-    private final static int INTERVAL = 1000 * 60;
-    int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,17 +42,16 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-        String result = "";
 
         try {
-             result = new DBConnectionRead().execute("").get();
+             String result = new DBConnectionRead().execute("").get();
         }catch (Exception e) {
         }
 
         profiles = IOFiles.updateList(profiles);
 
         currentConfig = (IOFiles.readConfig() == null) ? new Home() : IOFiles.readConfig();
-        updateConfig();
+        updateConfigNODB();
 
         Switch switchFoco1 = findViewById(R.id.switchFoco1);
         switchFoco1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -66,7 +61,9 @@ public class MainActivity extends AppCompatActivity
                 IOFiles.saveConfig(currentConfig);
                 String myState = isChecked ? "TRUE" : "FALSE";
                 try {
-                    new DBConnectionWrite().execute("led_1", myState);
+                    mHandler.removeCallbacks(mToastRunnable);
+                    String s = new DBConnectionWrite().execute("led_1", myState).get();
+                    mHandler.postDelayed(mToastRunnable, 1000 * 15);
                 }catch (Exception e) {
 
                 }
@@ -81,7 +78,9 @@ public class MainActivity extends AppCompatActivity
                 IOFiles.saveConfig(currentConfig);
                 String myState = isChecked ? "TRUE" : "FALSE";
                 try {
-                    new DBConnectionWrite().execute("led_2", myState);
+                    mHandler.removeCallbacks(mToastRunnable);
+                    String s = new DBConnectionWrite().execute("led_2", myState).get();
+                    mHandler.postDelayed(mToastRunnable, 1000 * 15);
                 }catch (Exception e) {
 
                 }
@@ -96,7 +95,9 @@ public class MainActivity extends AppCompatActivity
                 IOFiles.saveConfig(currentConfig);
                 String myState = isChecked ? "TRUE" : "FALSE";
                 try {
-                    new DBConnectionWrite().execute("led_3", myState);
+                    mHandler.removeCallbacks(mToastRunnable);
+                    String s = new DBConnectionWrite().execute("led_3", myState).get();
+                    mHandler.postDelayed(mToastRunnable, 1000 * 15);
                 }catch (Exception e) {
 
                 }
@@ -111,7 +112,9 @@ public class MainActivity extends AppCompatActivity
                 IOFiles.saveConfig(currentConfig);
                 String myState = isChecked ? "TRUE" : "FALSE";
                 try {
-                    new DBConnectionWrite().execute("led_4", myState);
+                    mHandler.removeCallbacks(mToastRunnable);
+                    String s = new DBConnectionWrite().execute("led_4", myState).get();
+                    mHandler.postDelayed(mToastRunnable, 1000 * 15);
                 }catch (Exception e) {
 
                 }
@@ -126,7 +129,9 @@ public class MainActivity extends AppCompatActivity
                 IOFiles.saveConfig(currentConfig);
                 String myState = isChecked ? "TRUE" : "FALSE";
                 try {
-                    new DBConnectionWrite().execute("led_5", myState);
+                    mHandler.removeCallbacks(mToastRunnable);
+                    String s = new DBConnectionWrite().execute("led_5", myState).get();
+                    mHandler.postDelayed(mToastRunnable, 1000 * 15);
                 }catch (Exception e) {
 
                 }
@@ -141,7 +146,9 @@ public class MainActivity extends AppCompatActivity
                 IOFiles.saveConfig(currentConfig);
                 String myState = isChecked ? "TRUE" : "FALSE";
                 try {
-                    new DBConnectionWrite().execute("led_6", myState);
+                    mHandler.removeCallbacks(mToastRunnable);
+                    String s = new DBConnectionWrite().execute("led_6", myState).get();
+                    mHandler.postDelayed(mToastRunnable, 1000 * 15);
                 }catch (Exception e) {
 
                 }
@@ -156,7 +163,9 @@ public class MainActivity extends AppCompatActivity
                 IOFiles.saveConfig(currentConfig);
                 String myState = isChecked ? "TRUE" : "FALSE";
                 try {
-                    new DBConnectionWrite().execute("led_7", myState);
+                    mHandler.removeCallbacks(mToastRunnable);
+                    String s = new DBConnectionWrite().execute("led_7", myState).get();
+                    mHandler.postDelayed(mToastRunnable, 1000 * 15);
                 }catch (Exception e) {
 
                 }
@@ -171,7 +180,43 @@ public class MainActivity extends AppCompatActivity
                 IOFiles.saveConfig(currentConfig);
                 String myState = isChecked ? "TRUE" : "FALSE";
                 try {
-                    new DBConnectionWrite().execute("led_8", myState);
+                    mHandler.removeCallbacks(mToastRunnable);
+                    String s = new DBConnectionWrite().execute("led_8", myState).get();
+                    mHandler.postDelayed(mToastRunnable, 1000 * 15);
+                }catch (Exception e) {
+
+                }
+            }
+        });
+
+        Switch switchFoco9 = findViewById(R.id.switchFoco9);
+        switchFoco9.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                currentConfig.setFoco(isChecked, 9);
+                IOFiles.saveConfig(currentConfig);
+                String myState = isChecked ? "TRUE" : "FALSE";
+                try {
+                    mHandler.removeCallbacks(mToastRunnable);
+                    String s = new DBConnectionWrite().execute("led_9", myState).get();
+                    mHandler.postDelayed(mToastRunnable, 1000 * 15);
+                }catch (Exception e) {
+
+                }
+            }
+        });
+
+        Switch switchFoco10 = findViewById(R.id.switchFoco10);
+        switchFoco10.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                currentConfig.setFoco(isChecked, 10);
+                IOFiles.saveConfig(currentConfig);
+                String myState = isChecked ? "TRUE" : "FALSE";
+                try {
+                    mHandler.removeCallbacks(mToastRunnable);
+                    String s = new DBConnectionWrite().execute("led_10", myState).get();
+                    mHandler.postDelayed(mToastRunnable, 1000 * 15);
                 }catch (Exception e) {
 
                 }
@@ -184,6 +229,14 @@ public class MainActivity extends AppCompatActivity
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setPuertaPrincipal(isChecked);
                 IOFiles.saveConfig(currentConfig);
+                String myState = isChecked ? "TRUE" : "FALSE";
+                try {
+                    mHandler.removeCallbacks(mToastRunnable);
+                    String s = new DBConnectionWrite().execute("p_principal", myState).get();
+                    mHandler.postDelayed(mToastRunnable, 1000 * 15);
+                }catch (Exception e) {
+
+                }
             }
         });
 
@@ -193,12 +246,36 @@ public class MainActivity extends AppCompatActivity
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 currentConfig.setPuertaPatio(isChecked);
                 IOFiles.saveConfig(currentConfig);
+                String myState = isChecked ? "TRUE" : "FALSE";
+                try {
+                    mHandler.removeCallbacks(mToastRunnable);
+                    String s = new DBConnectionWrite().execute("p_patio", myState).get();
+                    mHandler.postDelayed(mToastRunnable, 1000 * 15);
+                }catch (Exception e) {
+
+                }
             }
         });
 
-        Switch  switchPuertaCuarto = findViewById(R.id.switchPuertaCuarto);
-        switchPuertaCuarto.setClickable(false);
+        Switch  switchGarage = findViewById(R.id.switchGarage);
+        switchGarage.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                currentConfig.setGarage(isChecked);
+                IOFiles.saveConfig(currentConfig);
+                String myState = isChecked ? "TRUE" : "FALSE";
+                try {
+                    mHandler.removeCallbacks(mToastRunnable);
+                    String s = new DBConnectionWrite().execute("p_garage", myState).get();
+                    mHandler.postDelayed(mToastRunnable, 1000 * 15);
+                }catch (Exception e) {
 
+                }
+            }
+        });
+
+        Switch switchVentana = findViewById(R.id.switchVentana);
+        switchVentana.setClickable(false);
 
         TextView temperatura = findViewById(R.id.textViewTemperaturaSala);
         temperatura.setText(Float.toString(currentConfig.getTemperaturaSala()));
@@ -306,7 +383,8 @@ public class MainActivity extends AppCompatActivity
     public void updateConfigNODB() {
         Boolean [] focos  = currentConfig.getFocos();
         final Switch [] switches = {findViewById(R.id.switchFoco1), findViewById(R.id.switchFoco2), findViewById(R.id.switchFoco3), findViewById(R.id.switchFoco4),
-                findViewById(R.id.switchFoco5), findViewById(R.id.switchFoco6), findViewById(R.id.switchFoco7), findViewById(R.id.switchFoco8)};
+                findViewById(R.id.switchFoco5), findViewById(R.id.switchFoco6), findViewById(R.id.switchFoco7), findViewById(R.id.switchFoco8), findViewById(R.id.switchFoco9),
+                findViewById(R.id.switchFoco10)};
         for(int i = 0; i < focos.length; i++) {
             switches[i].setChecked(focos[i]);
         }
@@ -316,8 +394,8 @@ public class MainActivity extends AppCompatActivity
         Switch  switchPuertaPatio = findViewById(R.id.switchPuertaPatio);
         switchPuertaPatio.setChecked(currentConfig.getPuertaPatio());
 
-        Switch  switchPuertaCuarto = findViewById(R.id.switchPuertaCuarto);
-        switchPuertaCuarto.setChecked(currentConfig.getPuertaCuarto());
+        Switch  switchGarage = findViewById(R.id.switchGarage);
+        switchGarage.setChecked(currentConfig.getGarage());
 
         TextView temperatura = findViewById(R.id.textViewTemperaturaSala);
         temperatura.setText(Float.toString(currentConfig.getTemperaturaSala()));
@@ -331,6 +409,9 @@ public class MainActivity extends AppCompatActivity
         TextView humedadCuarto = findViewById(R.id.textViewHumedadCuarto);
         humedadCuarto.setText(Float.toString(currentConfig.getHumedadCuarto()));
 
+        Switch switchVentana = findViewById(R.id.switchVentana);
+        switchVentana.setChecked(currentConfig.getVentana());
+
         reviewAlarms();
     }
 
@@ -338,12 +419,16 @@ public class MainActivity extends AppCompatActivity
     public void updateConfig() {
         Boolean [] focos  = currentConfig.getFocos();
         final Switch [] switches = {findViewById(R.id.switchFoco1), findViewById(R.id.switchFoco2), findViewById(R.id.switchFoco3), findViewById(R.id.switchFoco4),
-                findViewById(R.id.switchFoco5), findViewById(R.id.switchFoco6), findViewById(R.id.switchFoco7), findViewById(R.id.switchFoco8)};
-        String [] estados = {"", "", "", "", "", "", "", ""};
+                findViewById(R.id.switchFoco5), findViewById(R.id.switchFoco6), findViewById(R.id.switchFoco7), findViewById(R.id.switchFoco8), findViewById(R.id.switchFoco9),
+                findViewById(R.id.switchFoco10)};
+        String [] estados = {"", "", "", "", "", "", "", "", "", "", "", "", ""};
         for(int i = 0; i < focos.length; i++) {
             switches[i].setChecked(focos[i]);
             estados[i] = (focos[i]) ? "TRUE" : "FALSE";
         }
+        estados[10] = (currentConfig.getPuertaPrincipal()) ? "TRUE" :  "FALSE";
+        estados[11] = (currentConfig.getPuertaPatio()) ? "TRUE" :  "FALSE";
+        estados[12] = (currentConfig.getGarage()) ? "TRUE" :  "FALSE";
         try {
             new DBConnectionWrite().execute("update neun_states set state = (case when device_name = 'led_1' then " + estados[0] + " " +
                     "when device_name = 'led_2' then " + estados[1] + " " +
@@ -352,8 +437,13 @@ public class MainActivity extends AppCompatActivity
                     "when device_name = 'led_5' then " + estados[4] + " " +
                     "when device_name = 'led_6' then " + estados[5] + " " +
                     "when device_name = 'led_7' then " + estados[6] + " " +
-                    "when device_name = 'led_8' then " + estados[7] + " " + "end)" +
-                    "where device_name in ('led_1', 'led_2', 'led_3', 'led_4', 'led_5', 'led_6', 'led_7', 'led_8');");
+                    "when device_name = 'led_8' then " + estados[7] + " " +
+                    "when device_name = 'led_9' then " + estados[8] + " " +
+                    "when device_name = 'led_10' then " + estados[9] + " " +
+                    "when device_name = 'p_principal' then " + estados[10] + " " +
+                    "when device_name = 'p_patio' then " + estados[11] + " " +
+                    "when device_name = 'p_garage' then " + estados[12] + " " +"end)" +
+                    "where device_name in ('led_1', 'led_2', 'led_3', 'led_4', 'led_5', 'led_6', 'led_7', 'led_8', 'led_9', 'led_10', 'p_principal', 'p_patio', 'garage');");
         } catch (Exception e) {
 
         }
@@ -364,8 +454,8 @@ public class MainActivity extends AppCompatActivity
         Switch  switchPuertaPatio = findViewById(R.id.switchPuertaPatio);
         switchPuertaPatio.setChecked(currentConfig.getPuertaPatio());
 
-        Switch  switchPuertaCuarto = findViewById(R.id.switchPuertaCuarto);
-        switchPuertaCuarto.setChecked(currentConfig.getPuertaCuarto());
+        Switch  switchGarage = findViewById(R.id.switchGarage);
+        switchGarage.setChecked(currentConfig.getGarage());
 
         TextView temperatura = findViewById(R.id.textViewTemperaturaSala);
         temperatura.setText(Float.toString(currentConfig.getTemperaturaSala()));
@@ -379,30 +469,24 @@ public class MainActivity extends AppCompatActivity
         TextView humedadCuarto = findViewById(R.id.textViewHumedadCuarto);
         humedadCuarto.setText(Float.toString(currentConfig.getHumedadCuarto()));
 
+        Switch switchVentana = findViewById(R.id.switchVentana);
+        switchVentana.setChecked(currentConfig.getVentana());
+
         reviewAlarms();
 
     }
 
     public void reviewAlarms() {
-        if (currentConfig.getGas() && currentConfig.getFuego() && currentConfig.getVentana()) {
+        if (currentConfig.getGas() && currentConfig.getFuego()) {
             NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
-            NotificationCompat.Builder nb = notificationHelper.getChannelNotification("Alerta de fuego, gas y alguien ha abierto la ventana");
+            NotificationCompat.Builder nb = notificationHelper.getChannelNotification("Alerta de fuego y  gas");
             notificationHelper.getManager().notify(1, nb.build());
             Intent callIntent = new Intent(Intent.ACTION_DIAL);
             callIntent.setData(Uri.parse("tel:"+911));
             startActivity(callIntent);
         }
 
-        if (currentConfig.getGas() && currentConfig.getFuego() && !currentConfig.getVentana()) {
-            NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
-            NotificationCompat.Builder nb = notificationHelper.getChannelNotification("Alerta de fuego y gas");
-            notificationHelper.getManager().notify(1, nb.build());
-            Intent callIntent = new Intent(Intent.ACTION_DIAL);
-            callIntent.setData(Uri.parse("tel:"+911));
-            startActivity(callIntent);
-        }
-
-        if (currentConfig.getGas() && !currentConfig.getFuego() && !currentConfig.getVentana()) {
+        if (currentConfig.getGas() && !currentConfig.getFuego()) {
             NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
             NotificationCompat.Builder nb = notificationHelper.getChannelNotification("Alerta de gas");
             notificationHelper.getManager().notify(1, nb.build());
@@ -411,25 +495,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(callIntent);
         }
 
-        if (!currentConfig.getGas() && currentConfig.getFuego() && currentConfig.getVentana()) {
-            NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
-            NotificationCompat.Builder nb = notificationHelper.getChannelNotification("Alerta de fuego y alguien ha abierto la ventana");
-            notificationHelper.getManager().notify(1, nb.build());
-            Intent callIntent = new Intent(Intent.ACTION_DIAL);
-            callIntent.setData(Uri.parse("tel:"+911));
-            startActivity(callIntent);
-        }
-
-        if (!currentConfig.getGas() && !currentConfig.getFuego() && currentConfig.getVentana()) {
-            NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
-            NotificationCompat.Builder nb = notificationHelper.getChannelNotification("Alerta, alguien ha abierto la ventana");
-            notificationHelper.getManager().notify(1, nb.build());
-            Intent callIntent = new Intent(Intent.ACTION_DIAL);
-            callIntent.setData(Uri.parse("tel:"+911));
-            startActivity(callIntent);
-        }
-
-        if (!currentConfig.getGas() && currentConfig.getFuego() && !currentConfig.getVentana()) {
+        if (!currentConfig.getGas() && currentConfig.getFuego()) {
             NotificationHelper notificationHelper = new NotificationHelper(getApplicationContext());
             NotificationCompat.Builder nb = notificationHelper.getChannelNotification("Alerta de fuego");
             notificationHelper.getManager().notify(1, nb.build());

@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Foco 1"
+        android:text="Garage"
         android:textOn="ON"
         app:layout_constraintStart_toStartOf="@+id/textViewFocosTitle"
         app:layout_constraintTop_toBottomOf="@+id/textViewFocosTitle" />
@@ -43,7 +43,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
-        android:text="Foco 2"
+        android:text="Sala 1"
         app:layout_constraintStart_toEndOf="@+id/switchFoco1"
         app:layout_constraintTop_toBottomOf="@+id/textViewFocosTitle" />
 
@@ -54,7 +54,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
-        android:text="Foco 3"
+        android:text="Cuarto"
         app:layout_constraintStart_toEndOf="@+id/switchFoco2"
         app:layout_constraintTop_toBottomOf="@+id/textViewFocosTitle" />
 
@@ -67,7 +67,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="Foco 4"
+        android:text="Sala 2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/switchFoco3"
@@ -78,7 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Foco 5"
+        android:text="Cocina"
         app:layout_constraintEnd_toEndOf="@+id/switchFoco1"
         app:layout_constraintStart_toStartOf="@+id/switchFoco1"
         app:layout_constraintTop_toBottomOf="@+id/switchFoco1" />
@@ -88,7 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Foco 7"
+        android:text="Puerta patio"
         app:layout_constraintEnd_toEndOf="@+id/switchFoco3"
         app:layout_constraintStart_toStartOf="@+id/switchFoco3"
         app:layout_constraintTop_toBottomOf="@+id/switchFoco3" />
@@ -100,7 +100,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="Foco 8"
+        android:text="Entrada"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/switchFoco4"
@@ -111,7 +111,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Foco 6"
+        android:text="Baño"
         app:layout_constraintEnd_toEndOf="@+id/switchFoco2"
         app:layout_constraintStart_toStartOf="@+id/switchFoco2"
         app:layout_constraintTop_toBottomOf="@+id/switchFoco2" />
@@ -120,17 +120,19 @@
         android:id="@+id/textViewPuertas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="312dp"
+        android:layout_marginRight="312dp"
         android:text="Puertas"
         android:textColor="@android:color/background_dark"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/switchFoco5"
-        app:layout_constraintTop_toBottomOf="@+id/switchFoco5" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/switchFoco9"
+        app:layout_constraintTop_toBottomOf="@+id/switchFoco9" />
 
     <Switch
         android:id="@+id/switchPuertaPrincipal"
@@ -155,13 +157,13 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewPuertas" />
 
     <Switch
-        android:id="@+id/switchPuertaCuarto"
+        android:id="@+id/switchGarage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="16dp"
-        android:text="Cuarto"
+        android:text="Garage"
         app:layout_constraintStart_toEndOf="@+id/switchPuertaPatio"
         app:layout_constraintTop_toBottomOf="@+id/textViewPuertas" />
 
@@ -176,6 +178,18 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/switchPuertaPrincipal"
         app:layout_constraintTop_toBottomOf="@+id/switchPuertaPrincipal" />
+
+    <TextView
+        android:id="@+id/textViewVentana"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Ventana"
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textViewTemperaturaCuarto"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTemperaturaCuarto" />
 
     <TextView
         android:id="@+id/textViewTemperaturaSala"
@@ -203,6 +217,8 @@
         android:id="@+id/textViewGrados2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginTop="16dp"
         android:text="℃"
         android:textColor="@android:color/background_dark"
@@ -290,5 +306,32 @@
         android:text="Humedad "
         app:layout_constraintStart_toEndOf="@+id/textViewGrados"
         app:layout_constraintTop_toBottomOf="@+id/textViewCuarto" />
+
+    <Switch
+        android:id="@+id/switchVentana"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Ventana"
+        app:layout_constraintStart_toStartOf="@+id/textViewVentana"
+        app:layout_constraintTop_toBottomOf="@+id/textViewVentana" />
+
+    <Switch
+        android:id="@+id/switchFoco9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Patio 1"
+        app:layout_constraintStart_toStartOf="@+id/switchFoco5"
+        app:layout_constraintTop_toBottomOf="@+id/switchFoco5" />
+
+    <Switch
+        android:id="@+id/switchFoco10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Patio 2"
+        app:layout_constraintStart_toStartOf="@+id/switchFoco6"
+        app:layout_constraintTop_toBottomOf="@+id/switchFoco6" />
 
 </android.support.constraint.ConstraintLayout>

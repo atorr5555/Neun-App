@@ -9,10 +9,8 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.ObjectOutputStream;
 
 public class AddActivity extends AppCompatActivity {
@@ -107,6 +105,22 @@ public class AddActivity extends AppCompatActivity {
             }
         });
 
+        Switch switchFoco9 = findViewById(R.id.switchFoco9);
+        switchFoco9.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                newConfig.setFoco(isChecked, 9);
+            }
+        });
+
+        Switch switchFoco10 = findViewById(R.id.switchFoco10);
+        switchFoco10.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                newConfig.setFoco(isChecked, 10);
+            }
+        });
+
         Switch  switchPuertaPrincipal = findViewById(R.id.switchPuertaPrincipal);
         switchPuertaPrincipal.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -123,11 +137,11 @@ public class AddActivity extends AppCompatActivity {
             }
         });
 
-        Switch  switchPuertaCuarto = findViewById(R.id.switchPuertaCuarto);
+        Switch  switchPuertaCuarto = findViewById(R.id.switchGarage);
         switchPuertaCuarto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                newConfig.setPuertaCuarto(isChecked);
+                newConfig.setGarage(isChecked);
             }
         });
     }

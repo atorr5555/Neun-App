@@ -22,7 +22,7 @@ public class DBConnectionRead extends AsyncTask<String, String, String> {
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
                 String deviceName = rs.getString("device_name");
-                if (deviceName.matches("led_[0-9]")) {
+                if (deviceName.matches("led_[0-9]+")) {
                     int indice = Integer.parseInt(deviceName.replace("led_", ""));
                     Boolean state = rs.getBoolean("state");
                     newConfig.setFoco(state, indice);
@@ -38,6 +38,18 @@ public class DBConnectionRead extends AsyncTask<String, String, String> {
 
                 if (deviceName.equals("flame_sens")) {
                     newConfig.setFuego(rs.getBoolean("state"));
+                }
+
+                if (deviceName.equals("p_principal")) {
+                    newConfig.setPuertaPrincipal(rs.getBoolean("state"));
+                }
+
+                if (deviceName.equals("p_patio")) {
+                    newConfig.setPuertaPatio(rs.getBoolean("state"));
+                }
+
+                if (deviceName.equals("p_garage")) {
+                    newConfig.setGarage(rs.getBoolean("state"));
                 }
             }
             ps = conn.prepareStatement("select * from env_data");

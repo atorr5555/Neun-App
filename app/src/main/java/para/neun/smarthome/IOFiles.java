@@ -31,11 +31,14 @@ public class IOFiles {
         }
         Home newConfig = readConfig(profileName);
         saveConfig(newConfig);
-        String [] estados = {"", "", "", "", "", "", "", ""};
+        String [] estados = {"", "", "", "", "", "", "", "", "", "", "", "", ""};
         Boolean [] focos = newConfig.getFocos();
         for (int i = 0; i <  focos.length; i++) {
             estados[i] = (focos[i]) ? "TRUE" : "FALSE";
         }
+        estados[10] = (newConfig.getPuertaPrincipal()) ? "TRUE" :  "FALSE";
+        estados[11] = (newConfig.getPuertaPatio()) ? "TRUE" :  "FALSE";
+        estados[12] = (newConfig.getGarage()) ? "TRUE" :  "FALSE";
         new DBConnectionWrite().execute("update neun_states set state = (case when device_name = 'led_1' then " + estados[0] + " " +
                 "when device_name = 'led_2' then " + estados[1] + " " +
                 "when device_name = 'led_3' then " + estados[2] + " " +
@@ -43,8 +46,13 @@ public class IOFiles {
                 "when device_name = 'led_5' then " + estados[4] + " " +
                 "when device_name = 'led_6' then " + estados[5] + " " +
                 "when device_name = 'led_7' then " + estados[6] + " " +
-                "when device_name = 'led_8' then " + estados[7] + " " + "end)" +
-                "where device_name in ('led_1', 'led_2', 'led_3', 'led_4', 'led_5', 'led_6', 'led_7', 'led_8');");
+                "when device_name = 'led_8' then " + estados[7] + " " +
+                "when device_name = 'led_9' then " + estados[8] + " " +
+                "when device_name = 'led_10' then " + estados[9] + " " +
+                "when device_name = 'p_principal' then " + estados[10] + " " +
+                "when device_name = 'p_patio' then " + estados[11] + " " +
+                "when device_name = 'p_garage' then " + estados[12] + " " +"end)" +
+                "where device_name in ('led_1', 'led_2', 'led_3', 'led_4', 'led_5', 'led_6', 'led_7', 'led_8', 'led_9', 'led_10', 'p_principal', 'p_patio', 'garage');");
     }
 
     public static boolean saveConfig(Home currentConfig) {

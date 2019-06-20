@@ -12,7 +12,7 @@ public class DBConnectionWrite extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
         String query = "";
-        if (strings[0].matches("led_[0-9]")) {
+        if ((strings[0].matches("led_[0-9]+")) || (strings[0].equals("p_principal") || (strings[0]).equals("p_patio")) || (strings[0]).equals("p_garage")) {
             query = selectQuery(strings[0], strings[1]);
         }
         else {
@@ -44,11 +44,11 @@ public class DBConnectionWrite extends AsyncTask<String, String, String> {
 
     public String selectQuery (String deviceName, String state) {
         String query = "";
-        if (deviceName.matches("led_[0-9]")) {
-            query = "update neun_states set state = " + state + " where device_name = '" + deviceName + "';";
+        if (state == null) {
+            query = deviceName;
         }
         else {
-            query = deviceName;
+            query = "update neun_states set state = " + state + " where device_name = '" + deviceName + "';";
         }
         return query;
     }
